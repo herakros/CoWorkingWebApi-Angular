@@ -1,3 +1,4 @@
+using CoWorking.Infrastructure;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,6 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddRepositories();
+builder.Services.AddDbContext(builder.Configuration.GetConnectionString("DefaultConnection"));
 builder.Services.AddCors();
 
 builder.Services.AddSpaStaticFiles(configuration =>

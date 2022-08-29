@@ -15,4 +15,9 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CoWorking.Core\CoWorking.Core.csproj" />
+    <ProjectReference Include="..\CoWorking.Infrastructure\CoWorking.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
