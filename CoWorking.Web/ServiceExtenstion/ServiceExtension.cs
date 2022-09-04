@@ -1,17 +1,35 @@
-﻿using CoWorking.Contracts.Helpers;
+﻿using CoWorking.Contracts.Data.Entities.UserEntity;
+using CoWorking.Contracts.Helpers;
+using CoWorking.Infrastructure.Data.SeedData;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace CoWorking.Web.ServiceExtenstion
 {
     public static class ServiceExtension
     {
+        public static async void AddSystemRolesToDb(this WebApplication app)
+        {
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var loggerFactory = services.GetRequiredService<ILoggerFactory>();
+                try
+                {
+                    var userManager = services.GetRequiredService<UserManager<User>>();
+                    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                    await SeedData.SystemRoles(userManager, roleManager);
+                }
+                catch (Exception ex)
+                {
+                    var logger = loggerFactory.CreateLogger<Program>();
+                    logger.LogError(ex, "An error occurred seeding the DB.");
+                }
+            }
+        }
         public static void AddJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
             var jwtOptions = configuration.GetSection(nameof(JwtOptions)).Get<JwtOptions>();
@@ -25,10 +43,9 @@ namespace CoWorking.Web.ServiceExtenstion
                 {
                     ValidateIssuer = true,
                     ValidateAudience = false,
-                    ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = jwtOptions.Issuer,
-                    ClockSkew = System.TimeSpan.Zero,
+                    ClockSkew = TimeSpan.Zero,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.Key)),
                 };
 
@@ -74,12 +91,12 @@ namespace CoWorking.Web.ServiceExtenstion
                                     Id = "Bearer"
                                 }
                             },
-                            new string[] {}
+                            Array.Empty<string>()
 
                     }
                 });
 
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Provis.WebApi", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "CoWorking.WebApi", Version = "v1" });
             });
         }
     }

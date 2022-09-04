@@ -1,4 +1,5 @@
 ﻿using CoWorking.Contracts.Data.Entities.UserEntity;
+using CoWorking.Contracts.Exceptions;
 using CoWorking.Contracts.Helpers;
 using CoWorking.Contracts.Services;
 using Microsoft.AspNetCore.Identity;
@@ -62,8 +63,10 @@ namespace CoWorking.Core.Services
             tokenHandler.ValidateToken(token, tokenValidationParameters, out SecurityToken securityToken);
             jwtSecurityToken = securityToken as JwtSecurityToken;
 
-            //if (jwtSecurityToken == null || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
-            //    throw new HttpException(System.Net.HttpStatusCode.BadRequest, ErrorMessages.InvalidToken);
+            if (jwtSecurityToken == null 
+                || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, 
+                    StringComparison.InvariantCultureIgnoreCase))
+                throw new HttpException(System.Net.HttpStatusCode.BadRequest, "Invalid Token");
 
             return jwtSecurityToken.Claims;
         }

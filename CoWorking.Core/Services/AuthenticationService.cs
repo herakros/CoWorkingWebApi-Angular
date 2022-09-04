@@ -1,14 +1,14 @@
-﻿using CoWorking.Contracts.Data;
+﻿using AutoMapper;
+using CoWorking.Contracts.Data;
 using CoWorking.Contracts.Data.Entities.RefreshTokenEntity;
 using CoWorking.Contracts.Data.Entities.UserEntity;
 using CoWorking.Contracts.DTO.AuthenticationDTO;
+using CoWorking.Contracts.DTO.UserDTO;
+using CoWorking.Contracts.Exceptions;
+using CoWorking.Contracts.Roles;
 using CoWorking.Contracts.Services;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace CoWorking.Core.Services
 {
@@ -16,49 +16,62 @@ namespace CoWorking.Core.Services
     {
         protected readonly UserManager<User> _userManager;
         protected readonly SignInManager<User> _signInManager;
+        protected readonly RoleManager<IdentityRole> _roleManager;
         protected readonly IJwtService _jwtService;
         protected readonly IRepository<RefreshToken> _refreshTokenRepository;
+        protected readonly IMapper _mapper;
 
         public AuthenticationService(UserManager<User> userManager,
             SignInManager<User> signInManager,
             IJwtService jwtService,
-            IRepository<RefreshToken> refreshTokenRepository)
+            IRepository<RefreshToken> refreshTokenRepository,
+            IMapper mapper,
+            RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _jwtService = jwtService;
             _refreshTokenRepository = refreshTokenRepository;
+            _mapper = mapper;
+            _roleManager = roleManager;
         }
 
-        public async Task<UserAutorizationDTO> LoginAsync(string email, string password)
+        public async Task<UserAutorizationDTO> LoginAsync(UserLoginDTO model)
         {
-            var user = await _userManager.FindByEmailAsync(email);
+            var user = await _userManager.FindByEmailAsync(model.Email);
 
-            if(user != null)
+            if (user == null || !await _userManager.CheckPasswordAsync(user, model.Password))
             {
-                return await GenerateUserTokens(user);
+                throw new HttpException(System.Net.HttpStatusCode.Unauthorized, 
+                    "Incorrect Email or Password!");
             }
 
-            return new UserAutorizationDTO();
+            if (user != null)
+            {
+                return await GenerateUserTokenAsync(user);
+            }
+
+            return new UserAutorizationDTO() { IsAuthenticated = false };
         }
 
-        private async Task<UserAutorizationDTO> GenerateUserTokens(User user)
+        private async Task<UserAutorizationDTO> GenerateUserTokenAsync(User user)
         {
             var claims = _jwtService.SetClaims(user);
 
             var token = _jwtService.CreateToken(claims);
-            var refeshToken = await CreateRefreshToken(user);
+            var refeshToken = await CreateRefreshTokenAsync(user);
 
             var tokens = new UserAutorizationDTO()
             {
                 Token = token,
-                RefreshToken = refeshToken
+                RefreshToken = refeshToken,
+                IsAuthenticated = true
             };
 
             return tokens;
         }
 
-        private async Task<string> CreateRefreshToken(User user)
+        private async Task<string> CreateRefreshTokenAsync(User user)
         {
             var refeshToken = _jwtService.CreateRefreshToken();
 
@@ -115,9 +128,30 @@ namespace CoWorking.Core.Services
             return tokens;
         }
 
-        public async Task RegistrationAsync(User user, string password, string roleName)
+        public async Task RegistrationAsync(UserRegistrationDTO model)
         {
-            var result = await _userManager.CreateAsync(user, password);
+            if (await IsUniqueUserName(model.UserName))
+            {
+                throw new HttpException(System.Net.HttpStatusCode.BadRequest,
+                    "User with this Username was already exists");
+            }
+
+            if(await IsUniqueUserEmail(model.Email))
+            {
+                throw new HttpException(System.Net.HttpStatusCode.BadRequest,
+                    "User with this Email was already exists");
+            }
+
+            if(await IsSystemRoleAndNoAdmin(model.Role))
+            {
+                throw new HttpException(System.Net.HttpStatusCode.BadRequest,
+                    "You can't register with this role");
+            }
+
+            var user = new User();
+            _mapper.Map(model, user);
+
+            var result = await _userManager.CreateAsync(user, model.Password);
 
             if (!result.Succeeded)
             {
@@ -126,8 +160,26 @@ namespace CoWorking.Core.Services
                 {
                     errorMessage.Append(error.Description.ToString() + " ");
                 }
-                throw new Exception();
+                throw new HttpException(System.Net.HttpStatusCode.BadRequest, errorMessage.ToString());
             }
+
+            await _userManager.AddToRoleAsync(user, model.Role);
+        }
+
+        private async Task<bool> IsUniqueUserName(string username)
+        {
+            return await _userManager.FindByNameAsync(username) == null;
+        }
+
+        private async Task<bool> IsUniqueUserEmail(string email)
+        {
+            return await _userManager.FindByEmailAsync(email) == null;
+        }
+
+        private async Task<bool> IsSystemRoleAndNoAdmin(string role)
+        {
+            return await _roleManager.FindByNameAsync(role) == null &&
+                role != Authorization.Roles.Admin.ToString();
         }
     }
 }

@@ -1,5 +1,6 @@
 using CoWorking.Core;
 using CoWorking.Infrastructure;
+using CoWorking.Web.Middleweres;
 using CoWorking.Web.ServiceExtenstion;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 
@@ -13,6 +14,9 @@ builder.Services.AddIdentityDbContext();
 
 builder.Services.AddRepositories();
 builder.Services.AddCustomServices();
+builder.Services.AddFluentValitation();
+builder.Services.AddAutoMapper();
+
 builder.Services.ConfigJwtOptions(builder.Configuration.GetSection("JwtOptions"));
 builder.Services.AddJwtAuthentication(builder.Configuration);
 builder.Services.AddSwagger();
@@ -26,6 +30,8 @@ builder.Services.AddCors();
 
 var app = builder.Build();
 
+app.AddSystemRolesToDb();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -38,8 +44,18 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
+app.UseMiddleware<ExceptionHandlingMiddleware>();
+
 app.UseRouting();
 
+app.UseCors(c =>
+{
+    c.AllowAnyOrigin();
+    c.AllowAnyHeader();
+    c.AllowAnyMethod();
+});
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>

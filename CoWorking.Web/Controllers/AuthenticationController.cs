@@ -1,6 +1,4 @@
-﻿using CoWorking.Contracts.Constants;
-using CoWorking.Contracts.Data.Entities.UserEntity;
-using CoWorking.Contracts.DTO.AuthenticationDTO;
+﻿using CoWorking.Contracts.DTO.AuthenticationDTO;
 using CoWorking.Contracts.DTO.UserDTO;
 using CoWorking.Contracts.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +7,7 @@ namespace CoWorking.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthenticationController : Controller
+    public class AuthenticationController : ControllerBase
     {
         private readonly IAuthenticationService authenticationService;
 
@@ -22,7 +20,7 @@ namespace CoWorking.Web.Controllers
         [Route("login")]
         public async Task<IActionResult> LoginAsync([FromBody] UserLoginDTO logDTO)
         {
-            var tokens = await authenticationService.LoginAsync(logDTO.Email, logDTO.Password);
+            var tokens = await authenticationService.LoginAsync(logDTO);
 
             return Ok(tokens);
         }
@@ -31,15 +29,7 @@ namespace CoWorking.Web.Controllers
         [Route("registration")]
         public async Task<IActionResult> RegistrationAsync([FromBody] UserRegistrationDTO regDTO)
         {
-            var user = new User()
-            {
-                UserName = regDTO.Username,
-                Surname = regDTO.Surname,
-                Name = regDTO.Name,
-                Email = regDTO.Email
-            };
-
-            await authenticationService.RegistrationAsync(user, regDTO.Password, SystemRoles.User);
+            await authenticationService.RegistrationAsync(regDTO);
 
             return Ok();
         }
