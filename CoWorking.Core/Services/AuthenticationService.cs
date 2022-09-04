@@ -168,18 +168,18 @@ namespace CoWorking.Core.Services
 
         private async Task<bool> IsUniqueUserName(string username)
         {
-            return await _userManager.FindByNameAsync(username) == null;
+            return await _userManager.FindByNameAsync(username) != null;
         }
 
         private async Task<bool> IsUniqueUserEmail(string email)
         {
-            return await _userManager.FindByEmailAsync(email) == null;
+            return await _userManager.FindByEmailAsync(email) != null;
         }
 
         private async Task<bool> IsSystemRoleAndNoAdmin(string role)
         {
-            return await _roleManager.FindByNameAsync(role) == null &&
-                role != Authorization.Roles.Admin.ToString();
+            return role == Authorization.Roles.Admin.ToString() || 
+                await _roleManager.FindByNameAsync(role) == null;
         }
     }
 }
