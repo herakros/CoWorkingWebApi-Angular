@@ -8,7 +8,7 @@ namespace CoWorking.Web.Controllers
     [ApiController]
     public class TestController : ControllerBase
     {
-        [HttpGet]
+        [HttpGet("test")]
         [Authorize(Roles = "Admin, Manager")]
         public async Task<IActionResult> GetTest()
         {

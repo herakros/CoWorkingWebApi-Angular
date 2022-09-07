@@ -19,14 +19,14 @@ builder.Services.AddAutoMapper();
 
 builder.Services.ConfigJwtOptions(builder.Configuration.GetSection("JwtOptions"));
 builder.Services.AddJwtAuthentication(builder.Configuration);
-builder.Services.AddSwagger();
+//builder.Services.AddSwagger();
 builder.Services.AddCors();
 
-//builder.Services.AddSpaStaticFiles(configuration =>
-//{
-//    configuration.RootPath = "ClientApp/dist";
-//});
-//builder.Services.AddSwaggerGen();
+builder.Services.AddSpaStaticFiles(configuration =>
+{
+    configuration.RootPath = "ClientApp/dist";
+});
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -63,10 +63,10 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllers();
 });
 
-//app.UseSpa(spa =>
-//{
-//    spa.Options.SourcePath = "ClientApp";
-//    spa.UseAngularCliServer(npmScript: "start");
-//});
+app.UseSpa(spa =>
+{
+    spa.Options.SourcePath = "ClientApp";
+    spa.UseAngularCliServer(npmScript: "start");
+});
 
 app.Run();
