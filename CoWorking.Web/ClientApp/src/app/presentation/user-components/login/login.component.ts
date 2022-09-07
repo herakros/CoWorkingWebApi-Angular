@@ -40,11 +40,10 @@ export class LoginComponent implements OnInit {
       this.userForLogin = Object.assign({}, this.loginForm.value);
       this.service.login(this.userForLogin).subscribe(
         () => {
-          console.log("good");
-          this.router.navigate(['test']);
+          this.router.navigate([]);
         },
         err => {
-          console.log(err);
+          this.errorMessage = err;
         }
       )
     }

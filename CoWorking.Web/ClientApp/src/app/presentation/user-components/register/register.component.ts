@@ -44,10 +44,10 @@ export class RegisterComponent implements OnInit {
       this.userForRegister = Object.assign({}, this.registerForm.value);
       this.service.register(this.userForRegister).subscribe(
         () => {
-          console.log("good");
+          this.router.navigate(['login']);
         },
         err => {
-          console.log(err);
+          this.errorMessage = err;
         }
       )
     }

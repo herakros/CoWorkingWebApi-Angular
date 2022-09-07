@@ -51,6 +51,7 @@ constructor(private http: HttpClient, private router: Router) {
       this.currentUser.id = decodedToken[this.userId];
       this.currentUser.username = decodedToken[this.userName];
       this.currentUser.role = decodedToken[this.userRole];
+      this.currentUser.isAuth = true;
 
       localStorage.setItem('token', tokens.token);
       localStorage.setItem('refreshToken', tokens.refreshToken);
