@@ -1,0 +1,11 @@
+.topic {
+    font-size: 20px;
+    color: #d9c1a8;
+    text-transform: uppercase;
+}
+.footer{
+    position:fixed;
+    bottom:0px;
+    background-color:pink;
+    width:100%;
+}

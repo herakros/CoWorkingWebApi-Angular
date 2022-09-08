@@ -1,0 +1,35 @@
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dar bg-dark">
+  <!-- Container wrapper -->
+  <div class="container">
+    <!-- Navbar brand -->
+
+    <!-- Collapsible wrapper -->
+    <div class="collapse navbar-collapse" id="navbarButtonsExample">
+      <!-- Left links -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="fw-bolder text-light nav-link" href="home">Home</a>
+        </li>
+      </ul>
+      <!-- Left links -->
+
+      <div class="d-flex align-items-center" *ngIf="isUserAuthorization">
+        <a type="button" class="btn btn-link px-3 me-2" href="login">
+          Login
+        </a>
+        <a type="button" class="btn btn-primary me-3" href="register">
+          Sign up for free
+        </a>
+      </div>
+      <div class="d-flex align-items-center" *ngIf="!isUserAuthorization">
+        <a type="button" class="btn btn-primary me-3" (click)="logout()">
+          Logout
+        </a>
+      </div>
+    </div>
+    <!-- Collapsible wrapper -->
+  </div>
+  <!-- Container wrapper -->
+</nav>
+<!-- Navbar -->
