@@ -6,4 +6,4 @@ export const authenticationServiceUrl = baseUrl + '/Authentication/';
 export const loginUrl = authenticationServiceUrl + 'login';
 export const registerUrl = authenticationServiceUrl + 'registration';
 export const logoutUrl = authenticationServiceUrl + 'logout';
-export const refreshTokenUrl = authenticationServiceUrl + 'refresh-token'
+export const refreshTokenUrl = authenticationServiceUrl + 'refresh-token';
