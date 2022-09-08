@@ -56,8 +56,6 @@ constructor(private http: HttpClient, private router: Router) {
       localStorage.setItem('token', tokens.token);
       localStorage.setItem('refreshToken', tokens.refreshToken);
       localStorage.setItem('user', JSON.stringify(this.currentUser));
-
-      this.router.navigate(['']);
     }
   }
 
@@ -89,6 +87,7 @@ constructor(private http: HttpClient, private router: Router) {
         this.currentUser.id = decodedToken[this.userId];
         this.currentUser.username = decodedToken[this.userName];
         this.currentUser.role = decodedToken[this.userRole];
+        this.currentUser.isAuth = true;
 
         localStorage.setItem('token', tokens.token);
         localStorage.setItem('refreshToken', tokens.refreshToken);
@@ -97,5 +96,27 @@ constructor(private http: HttpClient, private router: Router) {
 
       return tokens;
     }));
+  }
+
+  public async isAuthenticatedWithRefreshToken(): Promise<boolean> {
+    const token: any  = localStorage.getItem('token');
+    const refreshToken: any = localStorage.getItem('refreshToken');
+
+    if(!this.jwtHelperService.isTokenExpired(token) && refreshToken)
+      return true;
+
+    let result = false;
+    if(token && refreshToken)
+    {
+      try{
+        var res = await this.refreshToken().toPromise();
+        if(res?.token && res.refreshToken)
+        result = true;
+      } catch{
+        result = false;
+      }
+    }
+
+    return result;
   }
 }

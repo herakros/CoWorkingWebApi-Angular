@@ -15,7 +15,6 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.authService.currentUser.isAuth);
     if(!this.authService.currentUser.isAuth){
       this.isUserAuthorization = true;
     }

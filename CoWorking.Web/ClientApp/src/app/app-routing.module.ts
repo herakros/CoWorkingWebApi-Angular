@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './core/guards/auth-guard.service';
 import { HomeComponent } from './presentation/home-components/home/home.component';
 import { LoginComponent } from './presentation/user-components/login/login.component';
 import { RegisterComponent } from './presentation/user-components/register/register.component';
+
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -13,7 +15,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

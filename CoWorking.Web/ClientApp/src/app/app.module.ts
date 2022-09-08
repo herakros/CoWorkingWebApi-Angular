@@ -11,6 +11,10 @@ import { RegisterComponent } from './presentation/user-components/register/regis
 import { HomeComponent } from './presentation/home-components/home/home.component';
 import { FooterComponent } from './presentation/home-components/footer/footer.component';
 import { HeaderComponent } from './presentation/home-components/header/header.component';
+import { AuthGuard } from './core/guards/auth-guard.service';
+import { AuthInterceptorProvider } from './core/interceptors/auth.interceptor';
+import { ErrorInterceptorProvider } from './core/interceptors/error.interceptor';
+import { AuthenticationService } from './core/services/Authentication.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,11 @@ import { HeaderComponent } from './presentation/home-components/header/header.co
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    AuthInterceptorProvider,
+    ErrorInterceptorProvider,
+    AuthenticationService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
