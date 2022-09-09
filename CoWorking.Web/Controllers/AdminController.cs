@@ -1,4 +1,5 @@
-﻿using CoWorking.Contracts.Services;
+﻿using CoWorking.Contracts.DTO.AdminPanelDTO;
+using CoWorking.Contracts.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,9 +17,30 @@ namespace CoWorking.Web.Controllers
         }
 
         [HttpGet("users")]
-        public async Task<IActionResult> GetAllUsersWithRolesAsync()
+        public async Task<IActionResult> GetAllUsersWithRoles()
         {
             var result = await _service.GetAllUsersAsync();
+            return Ok(result);
+        }
+
+        [HttpPut("users")]
+        public async Task<IActionResult> PutUser([FromBody] UserInfoDTO model)
+        {
+            var result = await _service.PutUserAsync(model);
+            return Ok(result);
+        }
+
+        [HttpDelete("users/{id}")]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            await _service.DeleteUserAsync(id);
+            return Ok();
+        }
+
+        [HttpGet("users/{id}")]
+        public async Task<IActionResult> GetUserById(string id)
+        {
+            var result = await _service.GetUserByIdAsync(id);
             return Ok(result);
         }
     }

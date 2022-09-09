@@ -7,6 +7,7 @@ using CoWorking.Contracts.DTO.UserDTO;
 using CoWorking.Contracts.Exceptions;
 using CoWorking.Contracts.Roles;
 using CoWorking.Contracts.Services;
+using CoWorking.Core.Validators;
 using Microsoft.AspNetCore.Identity;
 using System.Text;
 
@@ -130,19 +131,19 @@ namespace CoWorking.Core.Services
 
         public async Task RegistrationAsync(UserRegistrationDTO model)
         {
-            if (await IsUniqueUserName(model.UserName))
+            if (await Validator.IsUniqueUserName(_userManager, model.UserName))
             {
                 throw new HttpException(System.Net.HttpStatusCode.BadRequest,
                     "User with this Username was already exists");
             }
 
-            if(await IsUniqueUserEmail(model.Email))
+            if(await Validator.IsUniqueUserEmail(_userManager, model.Email))
             {
                 throw new HttpException(System.Net.HttpStatusCode.BadRequest,
                     "User with this Email was already exists");
             }
 
-            if(await IsSystemRoleAndNoAdmin(model.Role))
+            if(await Validator.IsSystemRoleAndNoAdmin(_roleManager, model.Role))
             {
                 throw new HttpException(System.Net.HttpStatusCode.BadRequest,
                     "You can't register with this role");
@@ -164,22 +165,6 @@ namespace CoWorking.Core.Services
             }
 
             await _userManager.AddToRoleAsync(user, model.Role);
-        }
-
-        private async Task<bool> IsUniqueUserName(string username)
-        {
-            return await _userManager.FindByNameAsync(username) != null;
-        }
-
-        private async Task<bool> IsUniqueUserEmail(string email)
-        {
-            return await _userManager.FindByEmailAsync(email) != null;
-        }
-
-        private async Task<bool> IsSystemRoleAndNoAdmin(string role)
-        {
-            return role == Authorization.Roles.Admin.ToString() || 
-                await _roleManager.FindByNameAsync(role) == null;
         }
     }
 }
