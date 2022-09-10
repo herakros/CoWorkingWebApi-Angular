@@ -63,10 +63,10 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllers();
 });
 
-//app.UseSpa(spa =>
-//{
-//    spa.Options.SourcePath = "ClientApp";
-//    spa.UseAngularCliServer(npmScript: "start");
-//});
+app.UseSpa(spa =>
+{
+    spa.Options.SourcePath = "ClientApp";
+    spa.UseAngularCliServer(npmScript: "start");
+});
 
 app.Run();
