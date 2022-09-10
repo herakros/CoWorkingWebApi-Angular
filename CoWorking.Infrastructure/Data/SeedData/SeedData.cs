@@ -18,14 +18,14 @@ namespace CoWorking.Infrastructure.Data.SeedData
                 Name = "First",
                 Surname = "Last",
                 UserName = "Admin",
-                Email = "secret@mail.com",
+                Email = "admin@admin.com",
                 EmailConfirmed = true,
                 PhoneNumberConfirmed = true
             };
 
             if(userManager.Users.All(u => u.Id != admin.Id))
             {
-                await userManager.CreateAsync(admin, "Password1!");
+                await userManager.CreateAsync(admin, "Admin1!");
                 await userManager.AddToRoleAsync(admin, Authorization.Roles.Admin.ToString());
             }
         }

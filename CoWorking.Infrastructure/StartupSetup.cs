@@ -23,7 +23,9 @@ namespace CoWorking.Infrastructure
         public static void AddIdentityDbContext(this IServiceCollection services)
         {
             services.AddIdentity<User,
-                IdentityRole>().AddEntityFrameworkStores<CoWorkingDbContext>().AddDefaultTokenProviders();
+                IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+                    .AddEntityFrameworkStores<CoWorkingDbContext>()
+                    .AddDefaultTokenProviders();
         }
     }
 }

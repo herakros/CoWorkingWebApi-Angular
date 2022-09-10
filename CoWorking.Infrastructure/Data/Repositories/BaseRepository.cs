@@ -36,10 +36,25 @@ namespace CoWorking.Infrastructure.Data.Repositories
             return await _dbSet.FindAsync(key);
         }
 
+        public async Task AddRangeAsync(List<TEntity> entities)
+        {
+            await _dbContext.AddRangeAsync(entities);
+        }
+
         public async Task<TEntity> GetFirstBySpecAsync(ISpecification<TEntity> specification)
         {
             var res = await ApplySpecification(specification).FirstOrDefaultAsync();
             return res;
+        }
+
+        public async Task<IEnumerable<TReturn>> GetListBySpecAsync<TReturn>(ISpecification<TEntity, TReturn> specification)
+        {
+            return await ApplySpecification(specification).ToListAsync();
+        }
+
+        public async Task<IEnumerable<TEntity>> GetListBySpecAsync(ISpecification<TEntity> specification)
+        {
+            return await ApplySpecification(specification).ToListAsync();
         }
 
         public async Task<int> SaveChangesAsync()
@@ -53,6 +68,12 @@ namespace CoWorking.Infrastructure.Data.Repositories
         }
 
         private IQueryable<TEntity> ApplySpecification(ISpecification<TEntity> specification)
+        {
+            var evaluator = new SpecificationEvaluator();
+            return evaluator.GetQuery(_dbSet, specification);
+        }
+
+        private IQueryable<TReturn> ApplySpecification<TReturn>(ISpecification<TEntity, TReturn> specification)
         {
             var evaluator = new SpecificationEvaluator();
             return evaluator.GetQuery(_dbSet, specification);

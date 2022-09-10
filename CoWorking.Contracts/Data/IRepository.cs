@@ -16,6 +16,12 @@ namespace CoWorking.Contracts.Data
 
         Task<int> SaveChangesAsync();
 
+        Task AddRangeAsync(List<TEntity> entities);
+
         Task<TEntity> GetFirstBySpecAsync(ISpecification<TEntity> specification);
+
+        Task<IEnumerable<TReturn>> GetListBySpecAsync<TReturn>(ISpecification<TEntity, TReturn> specification);
+
+        Task<IEnumerable<TEntity>> GetListBySpecAsync(ISpecification<TEntity> specification);
     }
 }

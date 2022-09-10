@@ -19,7 +19,7 @@ builder.Services.AddAutoMapper();
 
 builder.Services.ConfigJwtOptions(builder.Configuration.GetSection("JwtOptions"));
 builder.Services.AddJwtAuthentication(builder.Configuration);
-//builder.Services.AddSwagger();
+builder.Services.AddSwagger();
 builder.Services.AddCors();
 
 builder.Services.AddSpaStaticFiles(configuration =>
