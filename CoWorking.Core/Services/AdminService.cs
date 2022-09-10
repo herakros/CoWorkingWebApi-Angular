@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using CoWorking.Contracts.Data;
+using CoWorking.Contracts.Data.Entities.BookingEntity;
 using CoWorking.Contracts.Data.Entities.UserEntity;
 using CoWorking.Contracts.DTO.AdminPanelDTO;
+using CoWorking.Contracts.DTO.BookingDTO;
 using CoWorking.Contracts.Exceptions;
 using CoWorking.Contracts.Services;
 using Microsoft.AspNetCore.Identity;
@@ -11,6 +13,7 @@ namespace CoWorking.Core.Services
     public class AdminService : IAdminService
     {
         private readonly IMapper _mapper;
+        private readonly IRepository<Booking> _bookingRepository;
         private readonly IRepository<User> _userRepository;
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -18,12 +21,31 @@ namespace CoWorking.Core.Services
         public AdminService(IMapper mapper,
             UserManager<User> userManager,
             RoleManager<IdentityRole> roleManager,
-            IRepository<User> userRepository)
+            IRepository<User> userRepository,
+            IRepository<Booking> bookingRepository)
         {
             _mapper = mapper;
             _userManager = userManager;
             _roleManager = roleManager;
             _userRepository = userRepository;
+            _bookingRepository = bookingRepository; 
+        }
+
+        public async Task AddBookingAsync(CreateBookingDTO model)
+        {
+            var booking = new Booking();
+            _mapper.Map(model, booking);
+
+            await _bookingRepository.AddAsync(booking);
+            await _bookingRepository.SaveChangesAsync();
+        }
+
+        public async Task AddRangeOfBooking(List<CreateBookingDTO> models)
+        {
+            var bookingList = _mapper.Map<List<CreateBookingDTO>, List<Booking>>(models);
+
+            await _bookingRepository.AddRangeAsync(bookingList);
+            await _bookingRepository.SaveChangesAsync();
         }
 
         public async Task DeleteUserAsync(string id)

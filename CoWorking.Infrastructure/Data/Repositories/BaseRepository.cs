@@ -36,6 +36,11 @@ namespace CoWorking.Infrastructure.Data.Repositories
             return await _dbSet.FindAsync(key);
         }
 
+        public async Task AddRangeAsync(List<TEntity> entities)
+        {
+            await _dbContext.AddRangeAsync(entities);
+        }
+
         public async Task<TEntity> GetFirstBySpecAsync(ISpecification<TEntity> specification)
         {
             var res = await ApplySpecification(specification).FirstOrDefaultAsync();

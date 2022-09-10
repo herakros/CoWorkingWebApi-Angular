@@ -19,17 +19,16 @@ namespace CoWorking.Contracts.Data.Entities.BookingEntity
                 .IsRequired();
 
             builder
-                .Property(x => x.DateStart)
-                .IsRequired();
+                .Property(x => x.DateStart);
 
             builder
-                .Property(x => x.DateEnd)
-                .IsRequired();
+                .Property(x => x.DateEnd);
 
             builder
                 .HasOne(x => x.Developer)
                 .WithOne(x => x.Booking)
-                .HasForeignKey<Booking>(x => x.DeveloperId);
+                .HasForeignKey<Booking>(x => x.DeveloperId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

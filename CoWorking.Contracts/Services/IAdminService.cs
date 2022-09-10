@@ -1,4 +1,5 @@
 ﻿using CoWorking.Contracts.DTO.AdminPanelDTO;
+using CoWorking.Contracts.DTO.BookingDTO;
 
 namespace CoWorking.Contracts.Services
 {
@@ -11,5 +12,9 @@ namespace CoWorking.Contracts.Services
         Task DeleteUserAsync(string id);
 
         Task<UserInfoDTO> GetUserByIdAsync(string id);
+
+        Task AddBookingAsync(CreateBookingDTO model);
+
+        Task AddRangeOfBooking(List<CreateBookingDTO> models);
     }
 }
