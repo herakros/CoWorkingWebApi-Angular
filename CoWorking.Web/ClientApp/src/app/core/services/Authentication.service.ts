@@ -6,7 +6,7 @@ import { map, Observable } from 'rxjs';
 import { UserAuthorizationResponse } from '../models/user/UserAuthorizationResponse';
 import { UserLogin } from '../models/user/UserLogin';
 import { UserInfo } from '../models/user/UserInfo';
-import { authenticationServiceUrl, loginUrl, logoutUrl, refreshTokenUrl, registerUrl } from 'src/app/configs/api-endpoints';
+import { loginUrl, logoutUrl, refreshTokenUrl, registerUrl } from 'src/app/configs/api-endpoints';
 import { UserRegister } from '../models/user/UserRegister';
 
 @Injectable({
