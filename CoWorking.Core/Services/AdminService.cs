@@ -4,7 +4,6 @@ using CoWorking.Contracts.Data.Entities.UserEntity;
 using CoWorking.Contracts.DTO.AdminPanelDTO;
 using CoWorking.Contracts.Exceptions;
 using CoWorking.Contracts.Services;
-using CoWorking.Core.Validators;
 using Microsoft.AspNetCore.Identity;
 
 namespace CoWorking.Core.Services

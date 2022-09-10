@@ -1,4 +1,6 @@
-﻿using CoWorking.Contracts.Data.Entities.RefreshTokenEntity;
+﻿using CoWorking.Contracts.Data.Entities.BookingEntity;
+using CoWorking.Contracts.Data.Entities.CommentEntity;
+using CoWorking.Contracts.Data.Entities.RefreshTokenEntity;
 using CoWorking.Contracts.Data.Entities.UserEntity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -19,9 +21,13 @@ namespace CoWorking.Infrastructure.Data
 
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new RefreshTokenConfiguration());
+            modelBuilder.ApplyConfiguration(new BookingConfiguration());
+            modelBuilder.ApplyConfiguration(new CommentConfiguration());
         }
 
         public DbSet<User> Users { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
+        public DbSet<Booking> Bookings { get; set; }
+        public DbSet<Comment> Comments { get; set; }
     }
 }
