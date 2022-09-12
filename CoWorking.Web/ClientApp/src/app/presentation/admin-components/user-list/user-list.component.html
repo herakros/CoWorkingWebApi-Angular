@@ -1,3 +1,50 @@
-<p>
-  user-list works!
-</p>
+<app-header></app-header>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<div class="container">
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title text-uppercase mb-0">Manage Users</h5>
+            </div>
+            <div class="table-responsive">
+                <table class="table no-wrap user-table mb-0">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="border-0 text-uppercase font-medium pl-4">#</th>
+                      <th scope="col" class="border-0 text-uppercase font-medium">UserName</th>
+                      <th scope="col" class="border-0 text-uppercase font-medium">Name</th>
+                      <th scope="col" class="border-0 text-uppercase font-medium">Email</th>
+                      <th scope="col" class="border-0 text-uppercase font-medium">Role</th>
+                      <th scope="col" class="border-0 text-uppercase font-medium">Manage</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let user of users; let i = index">
+                      <td class="pl-4">{{i + 1}}</td>
+                      <td>
+                          <h5 class="font-medium mb-0">{{user.userName}}</h5>
+                      </td>
+                      <td>
+                        <span class="text-muted">Name: {{user.name}}</span><br>
+                          <span class="text-muted">Surname: {{user.surname}}</span><br>
+                      </td>
+                      <td>
+                          <span class="text-muted">{{user.email}}</span><br>
+                      </td>
+                      <td>
+                          <span class="text-muted">{{user.role}}</span><br>
+                      </td>
+                      <td>
+                        <button type="button" (click)="deleteUser(user.id)"  class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-trash"></i> </button>
+                        <a type="button" [routerLink]="['/admin/users', user.id]" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-edit"></i> </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

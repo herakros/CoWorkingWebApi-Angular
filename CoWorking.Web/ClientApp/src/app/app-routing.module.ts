@@ -16,7 +16,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: "admin/users", component: UserListComponent, canActivate: [AdminRoleGuard, AuthGuard]},
-  {path: "admin/users:id", component: UserEditComponent, canActivate: [AdminRoleGuard, AuthGuard]},
+  {path: "admin/users/:id", component: UserEditComponent, canActivate: [AdminRoleGuard, AuthGuard]},
   {path: "admin/booking", component: AddBookingComponent, canActivate: [AdminRoleGuard, AuthGuard]},
   {path: '**', component: HomeComponent}
 ];

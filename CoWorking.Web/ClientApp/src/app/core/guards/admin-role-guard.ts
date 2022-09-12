@@ -12,6 +12,12 @@ export class AdminRoleGuard implements CanActivate{
         private router: Router) { }
 
     canActivate(): boolean {
-        throw new Error("Method not implemented.");
+        if(this.authenticationService.currentUser.role == "Admin")
+        {
+            return true;
+        }
+
+        this.router.navigate(['home']);
+        return false;
     }
 }

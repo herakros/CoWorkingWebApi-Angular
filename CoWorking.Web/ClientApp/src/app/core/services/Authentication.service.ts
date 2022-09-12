@@ -22,7 +22,7 @@ private jwtHelperService = new JwtHelperService();
 
 public currentUser: UserInfo;
 
-constructor(private http: HttpClient, private router: Router) {
+constructor(private http: HttpClient) {
   const user = localStorage.getItem('user');
 
     if(user) {

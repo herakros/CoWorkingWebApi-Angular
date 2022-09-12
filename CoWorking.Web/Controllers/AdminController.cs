@@ -27,8 +27,8 @@ namespace CoWorking.Web.Controllers
         [HttpPut("users")]
         public async Task<IActionResult> PutUser([FromBody] UserInfoDTO model)
         {
-            var result = await _service.PutUserAsync(model);
-            return Ok(result);
+            await _service.PutUserAsync(model);
+            return Ok();
         }
 
         [HttpDelete("users/{id}")]
