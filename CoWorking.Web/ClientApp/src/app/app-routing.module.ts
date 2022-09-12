@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminRoleGuard } from './core/guards/admin-role-guard';
 import { AuthGuard } from './core/guards/auth-guard.service';
 import { AddBookingComponent } from './presentation/admin-components/add-booking/add-booking.component';
+import { BookingsListComponent } from './presentation/admin-components/bookings-list/bookings-list.component';
+import { EditBookingComponent } from './presentation/admin-components/edit-booking/edit-booking.component';
 import { UserEditComponent } from './presentation/admin-components/user-edit/user-edit.component';
 import { UserListComponent } from './presentation/admin-components/user-list/user-list.component';
 import { HomeComponent } from './presentation/home-components/home/home.component';
@@ -17,6 +19,8 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: "admin/users", component: UserListComponent, canActivate: [AdminRoleGuard, AuthGuard]},
   {path: "admin/users/:id", component: UserEditComponent, canActivate: [AdminRoleGuard, AuthGuard]},
+  {path: "admin/bookings", component: BookingsListComponent, canActivate: [AdminRoleGuard, AuthGuard]},
+  {path: "admin/booking/:id", component: EditBookingComponent, canActivate: [AdminRoleGuard, AuthGuard]},
   {path: "admin/booking", component: AddBookingComponent, canActivate: [AdminRoleGuard, AuthGuard]},
   {path: '**', component: HomeComponent}
 ];

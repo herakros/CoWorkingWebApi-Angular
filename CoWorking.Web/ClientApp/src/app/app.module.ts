@@ -20,6 +20,8 @@ import { UserEditComponent } from './presentation/admin-components/user-edit/use
 import { AdminService } from './core/services/Admin.service';
 import { AdminRoleGuard } from './core/guards/admin-role-guard';
 import { AuthGuard } from './core/guards/auth-guard.service';
+import { BookingsListComponent } from './presentation/admin-components/bookings-list/bookings-list.component';
+import { EditBookingComponent } from './presentation/admin-components/edit-booking/edit-booking.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { AuthGuard } from './core/guards/auth-guard.service';
     HeaderComponent,
     AddBookingComponent,
     UserListComponent,
-    UserEditComponent
+    UserEditComponent,
+    BookingsListComponent,
+    EditBookingComponent
   ],
   imports: [
     BrowserModule,

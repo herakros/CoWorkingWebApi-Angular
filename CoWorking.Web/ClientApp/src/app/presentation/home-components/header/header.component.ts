@@ -32,4 +32,8 @@ export class HeaderComponent implements OnInit {
     )
   }
 
+  getRole() : string {
+    return this.authService.currentUser.role;
+  }
+
 }

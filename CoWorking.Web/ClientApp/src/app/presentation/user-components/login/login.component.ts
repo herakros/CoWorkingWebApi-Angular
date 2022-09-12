@@ -40,7 +40,15 @@ export class LoginComponent implements OnInit {
       this.userForLogin = Object.assign({}, this.loginForm.value);
       this.service.login(this.userForLogin).subscribe(
         () => {
-          this.router.navigate([]);
+          if(this.service.currentUser.role == "Admin") {
+            this.router.navigate(['admin/users']);
+          }
+          if(this.service.currentUser.role == "Manager") {
+            this.router.navigate(['manager']);
+          }
+          if(this.service.currentUser.role == "Developer") {
+            this.router.navigate(['developer']);
+          }
         },
         err => {
           this.errorMessage = err;

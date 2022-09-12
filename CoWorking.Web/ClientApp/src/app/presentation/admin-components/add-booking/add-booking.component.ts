@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AdminService } from 'src/app/core/services/Admin.service';
 
 @Component({
   selector: 'app-add-booking',
@@ -7,7 +10,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddBookingComponent implements OnInit {
 
-  constructor() { }
+  bookingForm: FormGroup;
+
+  constructor(private authService: AdminService,
+    private router: Router) { }
 
   ngOnInit() {
   }
