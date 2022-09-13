@@ -24,17 +24,23 @@
                       <td>
                           <h5 class="font-medium mb-0">{{booking.name}}</h5>
                       </td>
-                      <td>
-                        <span class="text-muted">Name: {{booking.dateStart}}</span><br>
+                      <td *ngIf="booking.dateStart == undefined">
+                        <span class="text-muted">Not reserve</span><br>
                       </td>
-                      <td>
-                          <span class="text-muted">{{booking.dateEnd}}</span><br>
+                      <td *ngIf="booking.dateStart != undefined">
+                        <span class="text-muted">{{booking.dateStart}}</span><br>
+                      </td>
+                      <td *ngIf="booking.dateEnd == undefined">
+                          <span class="text-muted">Not reserve</span><br>
+                      </td>
+                      <td *ngIf="booking.dateStart != undefined">
+                        <span class="text-muted">{{booking.dateEnd}}</span><br>
                       </td>
                       <td>
                           <span class="text-muted">{{booking.reserved}}</span><br>
                       </td>
                       <td>
-                        <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-trash"></i> </button>
+                        <button type="button" (click)="deleteBooking(booking.id)" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-trash"></i> </button>
                         <a type="button" [routerLink]="['/admin/bookings', booking.id]" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-edit"></i> </a>
                       </td>
                     </tr>

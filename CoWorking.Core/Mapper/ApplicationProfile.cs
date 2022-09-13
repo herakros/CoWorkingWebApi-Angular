@@ -32,6 +32,18 @@ namespace CoWorking.Core.Mapper
             CreateMap<CreateBookingDTO, Booking>()
                 .ForMember(dest => dest.Name, act => act.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, act => act.MapFrom(src => src.Description));
+
+            CreateMap<BookingInfoDTO, Booking>()
+                .ForMember(dest => dest.Name, act => act.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Description, act => act.MapFrom(src => src.Description))
+                .ForMember(dest => dest.DateStart, act => act.MapFrom(src => src.DateStart))
+                .ForMember(dest => dest.DateEnd, act => act.MapFrom(src => src.DateEnd));
+
+            CreateMap<Booking, BookingInfoDTO>()
+                .ForMember(dest => dest.Name, act => act.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Description, act => act.MapFrom(src => src.Description))
+                .ForMember(dest => dest.DateStart, act => act.MapFrom(src => src.DateStart))
+                .ForMember(dest => dest.DateEnd, act => act.MapFrom(src => src.DateEnd));
         }
     }
 }
