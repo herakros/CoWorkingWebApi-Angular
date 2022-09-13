@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -34,8 +35,8 @@ export class EditBookingComponent implements OnInit {
           this.service.getBookingById(this.bookingId).subscribe((booking: BookingInfoDTO) => {
             this.bookingForm.get('name')?.patchValue(booking.name);
             this.bookingForm.get('description')?.patchValue(booking.description);
-            this.bookingForm.get('dateStart')?.patchValue(booking.dateStart);
-            this.bookingForm.get('dateEnd')?.patchValue(booking.dateEnd);
+            this.bookingForm.get('dateStart')?.patchValue(this.formatData(booking.dateStart));
+            this.bookingForm.get('dateEnd')?.patchValue(this.formatData(booking.dateEnd));
           });
         }
       }
@@ -43,6 +44,14 @@ export class EditBookingComponent implements OnInit {
         this.router.navigate(['admin/bookings']);
       }
     })
+  }
+
+  formatData(input: Date) : string{
+    let date = new Date(input);
+    let format = 'yyyy-MM-dd';
+    let locale = 'en-Us';
+
+    return formatDate(date, format, locale);
   }
 
   editBooking() {

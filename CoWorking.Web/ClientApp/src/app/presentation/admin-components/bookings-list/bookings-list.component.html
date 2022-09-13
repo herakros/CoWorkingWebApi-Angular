@@ -28,13 +28,13 @@
                         <span class="text-muted">Not reserve</span><br>
                       </td>
                       <td *ngIf="booking.dateStart != undefined">
-                        <span class="text-muted">{{booking.dateStart}}</span><br>
+                        <span class="text-muted">{{booking.dateStart | date:'dd.MM.yyyy'}}</span><br>
                       </td>
                       <td *ngIf="booking.dateEnd == undefined">
                           <span class="text-muted">Not reserve</span><br>
                       </td>
                       <td *ngIf="booking.dateStart != undefined">
-                        <span class="text-muted">{{booking.dateEnd}}</span><br>
+                        <span class="text-muted">{{booking.dateEnd | date:'dd.MM.yyyy'}}</span><br>
                       </td>
                       <td>
                           <span class="text-muted">{{booking.reserved}}</span><br>
@@ -49,10 +49,10 @@
             </div>
         </div>
     </div>
+    <div class="card-container">
+      <a class="btn btn-success btn-sm" rel="noopener" [routerLink]="['/admin/booking']">
+        <span>Add Booking</span>
+      </a>
+    </div>
 </div>
-</div>
-<div class="card-container">
-  <a class="btn btn-success btn-sm" rel="noopener" [routerLink]="['/admin/booking']">
-    <span>Add Booking</span>
-  </a>
 </div>

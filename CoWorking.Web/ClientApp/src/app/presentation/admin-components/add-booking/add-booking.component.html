@@ -9,15 +9,13 @@
                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Create booking</p>
                 <form class="mx-1 mx-md-4" [formGroup]="bookingForm" autocomplete="off" novalidate (ngSubmit)="submit()">
                   <div class="d-flex flex-row align-items-center mb-4">
-                      <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                       <div class="form-outline flex-fill mb-0">
                         <input type="email" id="name" formControlName="name" class="form-control" placeholder="Enter Name"/>
                       </div>
                     </div>
                   <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
-                      <textarea id="description" formControlName="description" class="form-control" placeholder="Enter Description"></textarea>
+                      <textarea class="form-control" style="resize: none; height: 150px;" id="description" formControlName="description" class="form-control" placeholder="Enter Description"></textarea>
                     </div>
                   </div>
                   <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
