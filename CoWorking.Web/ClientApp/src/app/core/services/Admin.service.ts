@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { adminDeleteUserUrl, adminEditUserUrl, adminGetUsersUrl, adminGetUserUrl } from 'src/app/configs/api-endpoints';
+import { addBookingUrl, adminDeleteUserUrl, adminEditUserUrl, adminGetUsersUrl, adminGetUserUrl } from 'src/app/configs/api-endpoints';
+import { CreateBooking } from '../models/booking/CreateBooking';
 import { UserInfoDTO } from '../models/user/UserInfoDTO';
 
 @Injectable({
@@ -35,6 +36,10 @@ export class AdminService {
 
   editUser(user: UserInfoDTO) {
     return this.http.put(adminEditUserUrl, user, this.httpOption);
+  }
+
+  createBooking(booking: CreateBooking) : Observable<void>{
+    return this.http.post<void>(addBookingUrl, booking, this.httpOption);
   }
 
 }

@@ -1,3 +1,52 @@
-<p>
-  bookings-list works!
-</p>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<div class="container">
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title text-uppercase mb-0">Manage Bookings</h5>
+            </div>
+            <div class="table-responsive">
+                <table class="table no-wrap user-table mb-0">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="border-0 text-uppercase font-medium pl-4">#</th>
+                      <th scope="col" class="border-0 text-uppercase font-medium">Name</th>
+                      <th scope="col" class="border-0 text-uppercase font-medium">Date Start</th>
+                      <th scope="col" class="border-0 text-uppercase font-medium">Date End</th>
+                      <th scope="col" class="border-0 text-uppercase font-medium">Reserved</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let booking of bookings; let i = index">
+                      <td class="pl-4">{{i + 1}}</td>
+                      <td>
+                          <h5 class="font-medium mb-0">{{booking.name}}</h5>
+                      </td>
+                      <td>
+                        <span class="text-muted">Name: {{booking.dateStart}}</span><br>
+                      </td>
+                      <td>
+                          <span class="text-muted">{{booking.dateEnd}}</span><br>
+                      </td>
+                      <td>
+                          <span class="text-muted">{{booking.reserved}}</span><br>
+                      </td>
+                      <td>
+                        <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-trash"></i> </button>
+                        <a type="button" [routerLink]="['/admin/bookings', booking.id]" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-edit"></i> </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div class="card-container">
+  <a class="btn btn-success btn-sm" rel="noopener" [routerLink]="['/admin/booking']">
+    <span>Add Booking</span>
+  </a>
+</div>

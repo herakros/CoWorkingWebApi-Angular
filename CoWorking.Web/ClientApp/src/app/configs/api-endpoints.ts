@@ -13,3 +13,4 @@ export const adminGetUsersUrl = baseUrl + adminUrl + 'users';
 export const adminGetUserUrl = baseUrl + adminUrl + 'users/';
 export const adminDeleteUserUrl = baseUrl + adminUrl + 'users/';
 export const adminEditUserUrl = baseUrl + adminUrl + 'users';
+export const addBookingUrl = baseUrl + adminUrl + 'booking';

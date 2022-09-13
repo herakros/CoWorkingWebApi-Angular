@@ -20,7 +20,7 @@ const routes: Routes = [
   {path: "admin/users", component: UserListComponent, canActivate: [AdminRoleGuard, AuthGuard]},
   {path: "admin/users/:id", component: UserEditComponent, canActivate: [AdminRoleGuard, AuthGuard]},
   {path: "admin/bookings", component: BookingsListComponent, canActivate: [AdminRoleGuard, AuthGuard]},
-  {path: "admin/booking/:id", component: EditBookingComponent, canActivate: [AdminRoleGuard, AuthGuard]},
+  {path: "admin/bookings/:id", component: EditBookingComponent, canActivate: [AdminRoleGuard, AuthGuard]},
   {path: "admin/booking", component: AddBookingComponent, canActivate: [AdminRoleGuard, AuthGuard]},
   {path: '**', component: HomeComponent}
 ];
