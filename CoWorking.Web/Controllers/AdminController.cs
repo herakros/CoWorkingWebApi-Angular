@@ -45,7 +45,7 @@ namespace CoWorking.Web.Controllers
             return Ok(result);
         }
 
-        [HttpPost("booking")]
+        [HttpPost("bookings")]
         public async Task<IActionResult> CreateBooking([FromBody] CreateBookingDTO model)
         {
             await _service.AddBookingAsync(model);

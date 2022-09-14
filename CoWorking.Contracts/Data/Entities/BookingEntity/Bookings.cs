@@ -20,6 +20,6 @@ namespace CoWorking.Contracts.Data.Entities.BookingEntity
                         Reserved = x.DeveloperId != null
                     });
             }
-        }
+        } 
     }
 }
