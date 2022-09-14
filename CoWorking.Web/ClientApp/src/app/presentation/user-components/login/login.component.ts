@@ -15,24 +15,14 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   userForLogin: UserLogin = new UserLogin();
 
-  errorMessage: string = '';
-  showError: boolean;
-
   constructor(private service: AuthenticationService, private router: Router) {
     this.loginForm = new FormGroup({
       email: new FormControl("", SignInUpValidator.getEmailValidator()),
-      password: new FormControl("", [Validators.required])
+      password: new FormControl("", SignInUpValidator.getRequiredValidator())
     });
   }
 
   ngOnInit() {
-  }
-
-  validateControl = (controlName: string) => {
-    return this.loginForm.get(controlName).invalid && this.loginForm.get(controlName).touched
-  }
-  hasError = (controlName: string, errorName: string) => {
-    return this.loginForm.get(controlName).hasError(errorName)
   }
 
   submit() {
@@ -51,7 +41,7 @@ export class LoginComponent implements OnInit {
           }
         },
         err => {
-          this.errorMessage = err;
+          alert(err);
         }
       )
     }
