@@ -27,8 +27,8 @@ namespace CoWorking.Web.Controllers
         [HttpPut("users")]
         public async Task<IActionResult> PutUser([FromBody] UserInfoDTO model)
         {
-            var result = await _service.PutUserAsync(model);
-            return Ok(result);
+            await _service.PutUserAsync(model);
+            return Ok();
         }
 
         [HttpDelete("users/{id}")]
@@ -45,18 +45,40 @@ namespace CoWorking.Web.Controllers
             return Ok(result);
         }
 
-        [HttpPost("booking")]
+        [HttpPost("bookings")]
         public async Task<IActionResult> CreateBooking([FromBody] CreateBookingDTO model)
         {
             await _service.AddBookingAsync(model);
             return Ok();
         }
 
-        [HttpPost("bookings")]
-        public async Task<IActionResult> CreateRangeOfBooking([FromBody] List<CreateBookingDTO> models)
+        [HttpGet("bookings")]
+        public async Task<IActionResult> GetAllBookings()
         {
-            await _service.AddRangeOfBooking(models);
+            var result = await _service.GetAllBooingsAsync();
+            return Ok(result);
+        }
+
+        [HttpDelete("bookings/{id}")]
+        public async Task<IActionResult> DeleteBooking(int id)
+        {
+            await _service.DeleteBookingAsync(id);
             return Ok();
         }
+
+        [HttpPut("bookings")]
+        public async Task<IActionResult> PutBooking([FromBody] BookingInfoDTO model)
+        {
+            await _service.PutBookingAsync(model);
+            return Ok();
+        }
+
+        [HttpGet("bookings/{id}")]
+        public async Task<IActionResult> GetBookingById(int id)
+        {
+            var result = await _service.GetBookingByIdAsync(id);
+            return Ok(result);
+        }
+
     }
 }

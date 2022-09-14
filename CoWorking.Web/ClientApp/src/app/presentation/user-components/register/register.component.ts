@@ -13,30 +13,20 @@ import { SignInUpValidator } from 'src/app/core/validators/signInUpValidator';
 export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
-  userForRegister: UserRegister = new UserRegister();
-
-  errorMessage: string = '';
-  showError: boolean;
+  userForRegister: UserRegister;
 
   constructor(private service: AuthenticationService, private router: Router) {
     this.registerForm = new FormGroup({
       name: new FormControl("", SignInUpValidator.getNameValidator(3,50)),
       surname: new FormControl("", SignInUpValidator.getNameValidator(3,50)),
-      userName: new FormControl("", SignInUpValidator.getNameValidator(3,50)),
+      userName: new FormControl("", SignInUpValidator.getUserNameValidator(3,50)),
       email: new FormControl("", SignInUpValidator.getEmailValidator()),
-      role: new FormControl("", [Validators.required]),
-      password: new FormControl("", SignInUpValidator.getRequiredValidator())
+      role: new FormControl("", SignInUpValidator.getRequiredValidator()),
+      password: new FormControl("", SignInUpValidator.getPasswordValidator(8,50))
     });
   }
 
   ngOnInit() {
-  }
-
-  validateControl = (controlName: string) => {
-    return this.registerForm.get(controlName).invalid && this.registerForm.get(controlName).touched
-  }
-  hasError = (controlName: string, errorName: string) => {
-    return this.registerForm.get(controlName).hasError(errorName)
   }
 
   submit() {
@@ -47,7 +37,7 @@ export class RegisterComponent implements OnInit {
           this.router.navigate(['login']);
         },
         err => {
-          this.errorMessage = err;
+          alert(err);
         }
       )
     }

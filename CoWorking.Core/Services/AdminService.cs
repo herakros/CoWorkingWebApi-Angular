@@ -40,11 +40,17 @@ namespace CoWorking.Core.Services
             await _bookingRepository.SaveChangesAsync();
         }
 
-        public async Task AddRangeOfBooking(List<CreateBookingDTO> models)
+        public async Task DeleteBookingAsync(int id)
         {
-            var bookingList = _mapper.Map<List<CreateBookingDTO>, List<Booking>>(models);
+            var booking = await _bookingRepository.GetByKeyAsync(id);
 
-            await _bookingRepository.AddRangeAsync(bookingList);
+            if(booking == null)
+            {
+                throw new HttpException(System.Net.HttpStatusCode.NotFound,
+                    "Booking not found!");
+            }
+
+            await _bookingRepository.DeleteAsync(booking);
             await _bookingRepository.SaveChangesAsync();
         }
 
@@ -62,12 +68,35 @@ namespace CoWorking.Core.Services
             await _userManager.DeleteAsync(user);
         }
 
+        public async Task<IEnumerable<BookingInfoDTO>> GetAllBooingsAsync()
+        {
+            var specification = new Bookings.BookingInfoList();
+            var bookings = await _bookingRepository.GetListBySpecAsync(specification);
+
+            return bookings;
+        }
+
         public async Task<IEnumerable<UserInfoDTO>> GetAllUsersAsync()
         {
             var scecification = new Users.UsersWithRole(_userManager);
             var users = await _userRepository.GetListBySpecAsync(scecification);
 
             return users;
+        }
+
+        public async Task<BookingInfoDTO> GetBookingByIdAsync(int id)
+        {
+            var booking = await _bookingRepository.GetByKeyAsync(id);
+            if (booking == null)
+            {
+                throw new HttpException(System.Net.HttpStatusCode.NotFound,
+                    "Booking not found!");
+            }
+
+            var bookingDTO = new BookingInfoDTO();
+            _mapper.Map(booking, bookingDTO);
+
+            return bookingDTO;
         }
 
         public async Task<UserInfoDTO> GetUserByIdAsync(string id)
@@ -86,6 +115,22 @@ namespace CoWorking.Core.Services
             userInfo.Role = await GetUserRoleAsync(_userManager, user);
 
             return userInfo;
+        }
+
+        public async Task PutBookingAsync(BookingInfoDTO model)
+        {
+            var booking = await _bookingRepository.GetByKeyAsync(model.Id);
+
+            if (booking == null)
+            {
+                throw new HttpException(System.Net.HttpStatusCode.NotFound,
+                    "Booking not found!");
+            }
+
+            _mapper.Map(model, booking);
+
+            await _bookingRepository.UpdateAsync(booking);
+            await _bookingRepository.SaveChangesAsync();
         }
 
         public async Task<UserInfoDTO> PutUserAsync(UserInfoDTO model)

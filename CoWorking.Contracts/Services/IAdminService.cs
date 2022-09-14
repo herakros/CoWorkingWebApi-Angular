@@ -15,6 +15,12 @@ namespace CoWorking.Contracts.Services
 
         Task AddBookingAsync(CreateBookingDTO model);
 
-        Task AddRangeOfBooking(List<CreateBookingDTO> models);
+        Task<IEnumerable<BookingInfoDTO>> GetAllBooingsAsync();
+
+        Task DeleteBookingAsync(int id);
+
+        Task PutBookingAsync(BookingInfoDTO model);
+
+        Task<BookingInfoDTO> GetBookingByIdAsync(int id);
     }
 }

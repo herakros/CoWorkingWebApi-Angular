@@ -11,10 +11,17 @@ import { RegisterComponent } from './presentation/user-components/register/regis
 import { HomeComponent } from './presentation/home-components/home/home.component';
 import { FooterComponent } from './presentation/home-components/footer/footer.component';
 import { HeaderComponent } from './presentation/home-components/header/header.component';
-import { AuthGuard } from './core/guards/auth-guard.service';
 import { AuthInterceptorProvider } from './core/interceptors/auth.interceptor';
 import { ErrorInterceptorProvider } from './core/interceptors/error.interceptor';
 import { AuthenticationService } from './core/services/Authentication.service';
+import { AddBookingComponent } from './presentation/admin-components/add-booking/add-booking.component';
+import { UserListComponent } from './presentation/admin-components/user-list/user-list.component';
+import { UserEditComponent } from './presentation/admin-components/user-edit/user-edit.component';
+import { AdminService } from './core/services/Admin.service';
+import { AdminRoleGuard } from './core/guards/admin-role-guard';
+import { AuthGuard } from './core/guards/auth-guard.service';
+import { BookingsListComponent } from './presentation/admin-components/bookings-list/bookings-list.component';
+import { EditBookingComponent } from './presentation/admin-components/edit-booking/edit-booking.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +30,12 @@ import { AuthenticationService } from './core/services/Authentication.service';
     LoginComponent,
     RegisterComponent,
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
+    AddBookingComponent,
+    UserListComponent,
+    UserEditComponent,
+    BookingsListComponent,
+    EditBookingComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +48,10 @@ import { AuthenticationService } from './core/services/Authentication.service';
   providers: [
     AuthInterceptorProvider,
     ErrorInterceptorProvider,
-    AuthenticationService
+    AuthenticationService,
+    AdminService,
+    AdminRoleGuard,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

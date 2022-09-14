@@ -1,4 +1,3 @@
-<app-header></app-header>
 <section class="vh-100" style="background-color: #eee;">
     <div class="container h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
@@ -8,17 +7,13 @@
               <div class="row justify-content-center">
                 <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
                   <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
-                  <div *ngIf="showError" class="alert alert-danger" role="alert">
-                    {{errorMessage}}
-                    </div>
                   <form class="mx-1 mx-md-4" [formGroup]="registerForm" autocomplete="off" novalidate (ngSubmit)="submit()">
                     <div class="d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                       <div class="form-outline flex-fill mb-0">
                         <input type="text" id="name" formControlName="name" class="form-control" placeholder="Enter name"/>
-
-                        <div class="col-md-5 text-danger">
-                            <em *ngIf="validateControl('name') && hasError('name', 'required')">Name is required</em>
+                        <div *ngIf="registerForm.controls['name'].invalid && registerForm.controls['name'].touched" class="alert alert-danger">
+                            Name is required. Must contain only letters!
                         </div>
                       </div>
                     </div>
@@ -26,27 +21,27 @@
                         <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
                           <input type="text" id="surname" formControlName="surname" class="form-control" placeholder="Enter surname"/>
-                          <div class="col-md-5 text-danger">
-                            <em *ngIf="validateControl('surname') && hasError('surname', 'required')">Surname is required</em>
-                        </div>
+                          <div *ngIf="registerForm.controls['surname'].invalid && registerForm.controls['surname'].touched" class="alert alert-danger">
+                              Surname is required. Must contain only letters!
+                          </div>
                         </div>
                       </div>
                       <div class="d-flex flex-row align-items-center mb-4">
                         <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
                           <input type="text" id="userName" formControlName="userName" class="form-control" placeholder="Enter username"/>
-                          <div class="col-md-5 text-danger">
-                            <em *ngIf="validateControl('userName') && hasError('userName', 'required')">UserName is required</em>
-                        </div>
+                          <div *ngIf="registerForm.controls['userName'].invalid && registerForm.controls['userName'].touched" class="alert alert-danger">
+                              UserName is required.
+                          </div>
                         </div>
                       </div>
                     <div class="d-flex flex-row align-items-center mb-4">
                         <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
                           <input type="email" id="email" formControlName="email" class="form-control" placeholder="Enter email"/>
-                          <div class="col-md-5 text-danger">
-                            <em *ngIf="validateControl('email') && hasError('email', 'required')">Email is required</em>
-                        </div>
+                          <div *ngIf="registerForm.controls['email'].invalid && registerForm.controls['email'].touched" class="alert alert-danger">
+                              Enter correct email.
+                          </div>
                         </div>
                       </div>
                     <div class="d-flex flex-row align-items-center mb-4">
@@ -63,8 +58,8 @@
                       <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                       <div class="form-outline flex-fill mb-0">
                         <input type="password" id="password" formControlName="password" class="form-control" placeholder="Enter password"/>
-                        <div class="col-md-5 text-danger">
-                            <em *ngIf="validateControl('password') && hasError('password', 'required')">Password is required</em>
+                        <div *ngIf="registerForm.controls['password'].invalid && registerForm.controls['password'].touched" class="alert alert-danger">
+                            Password is not strong enough and it must be at least 8 characters long.
                         </div>
                       </div>
                     </div>
