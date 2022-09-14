@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using CoWorking.Contracts.Data;
-using CoWorking.Contracts.Data.Entities.BookingEntity;
 using CoWorking.Contracts.Data.Entities.UserEntity;
 using CoWorking.Contracts.DTO.AdminPanelDTO;
-using CoWorking.Contracts.DTO.BookingDTO;
 using CoWorking.Contracts.Exceptions;
 using CoWorking.Contracts.Services;
 using Microsoft.AspNetCore.Identity;
@@ -13,7 +11,6 @@ namespace CoWorking.Core.Services
     public class AdminService : IAdminService
     {
         private readonly IMapper _mapper;
-        private readonly IRepository<Booking> _bookingRepository;
         private readonly IRepository<User> _userRepository;
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -21,37 +18,12 @@ namespace CoWorking.Core.Services
         public AdminService(IMapper mapper,
             UserManager<User> userManager,
             RoleManager<IdentityRole> roleManager,
-            IRepository<User> userRepository,
-            IRepository<Booking> bookingRepository)
+            IRepository<User> userRepository)
         {
             _mapper = mapper;
             _userManager = userManager;
             _roleManager = roleManager;
             _userRepository = userRepository;
-            _bookingRepository = bookingRepository; 
-        }
-
-        public async Task AddBookingAsync(CreateBookingDTO model)
-        {
-            var booking = new Booking();
-            _mapper.Map(model, booking);
-
-            await _bookingRepository.AddAsync(booking);
-            await _bookingRepository.SaveChangesAsync();
-        }
-
-        public async Task DeleteBookingAsync(int id)
-        {
-            var booking = await _bookingRepository.GetByKeyAsync(id);
-
-            if(booking == null)
-            {
-                throw new HttpException(System.Net.HttpStatusCode.NotFound,
-                    "Booking not found!");
-            }
-
-            await _bookingRepository.DeleteAsync(booking);
-            await _bookingRepository.SaveChangesAsync();
         }
 
         public async Task DeleteUserAsync(string id)
@@ -68,35 +40,12 @@ namespace CoWorking.Core.Services
             await _userManager.DeleteAsync(user);
         }
 
-        public async Task<IEnumerable<BookingInfoDTO>> GetAllBooingsAsync()
-        {
-            var specification = new Bookings.BookingInfoList();
-            var bookings = await _bookingRepository.GetListBySpecAsync(specification);
-
-            return bookings;
-        }
-
         public async Task<IEnumerable<UserInfoDTO>> GetAllUsersAsync()
         {
             var scecification = new Users.UsersWithRole(_userManager);
             var users = await _userRepository.GetListBySpecAsync(scecification);
 
             return users;
-        }
-
-        public async Task<BookingInfoDTO> GetBookingByIdAsync(int id)
-        {
-            var booking = await _bookingRepository.GetByKeyAsync(id);
-            if (booking == null)
-            {
-                throw new HttpException(System.Net.HttpStatusCode.NotFound,
-                    "Booking not found!");
-            }
-
-            var bookingDTO = new BookingInfoDTO();
-            _mapper.Map(booking, bookingDTO);
-
-            return bookingDTO;
         }
 
         public async Task<UserInfoDTO> GetUserByIdAsync(string id)
@@ -115,22 +64,6 @@ namespace CoWorking.Core.Services
             userInfo.Role = await GetUserRoleAsync(_userManager, user);
 
             return userInfo;
-        }
-
-        public async Task PutBookingAsync(BookingInfoDTO model)
-        {
-            var booking = await _bookingRepository.GetByKeyAsync(model.Id);
-
-            if (booking == null)
-            {
-                throw new HttpException(System.Net.HttpStatusCode.NotFound,
-                    "Booking not found!");
-            }
-
-            _mapper.Map(model, booking);
-
-            await _bookingRepository.UpdateAsync(booking);
-            await _bookingRepository.SaveChangesAsync();
         }
 
         public async Task<UserInfoDTO> PutUserAsync(UserInfoDTO model)
