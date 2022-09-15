@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { BookingInfo } from 'src/app/core/models/booking/BookingInfo';
 import { AdminService } from 'src/app/core/services/Admin.service';
 
 @Component({
-  selector: 'app-bookings-list',
-  templateUrl: './bookings-list.component.html',
-  styleUrls: ['./bookings-list.component.css']
+  selector: 'app-admin-booking-list',
+  templateUrl: './admin-booking-list.component.html',
+  styleUrls: ['./admin-booking-list.component.css']
 })
-export class BookingsListComponent implements OnInit {
+export class AdminBookingListComponent implements OnInit {
 
   bookings: BookingInfo[];
   constructor(private service: AdminService) { }

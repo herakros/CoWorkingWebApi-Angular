@@ -69,7 +69,7 @@ namespace CoWorking.Web.Controllers
         }
 
         [HttpPut("bookings")]
-        public async Task<IActionResult> PutBooking([FromBody] BookingInfoDTO model)
+        public async Task<IActionResult> PutBooking([FromBody] BookingDTO model)
         {
             await _bookingService.PutBookingAsync(model);
             return Ok();

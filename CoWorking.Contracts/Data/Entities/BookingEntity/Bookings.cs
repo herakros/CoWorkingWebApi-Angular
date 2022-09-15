@@ -5,12 +5,12 @@ namespace CoWorking.Contracts.Data.Entities.BookingEntity
 {
     public class Bookings
     {
-        public class BookingInfoList : Specification<Booking, BookingInfoDTO>
+        public class BookingList : Specification<Booking, BookingDTO>
         {
-            public BookingInfoList()
+            public BookingList()
             {
                 Query
-                    .Select(x => new BookingInfoDTO
+                    .Select(x => new BookingDTO
                     {
                         Id = x.Id,
                         Name = x.Name,
@@ -20,6 +20,36 @@ namespace CoWorking.Contracts.Data.Entities.BookingEntity
                         Reserved = x.DeveloperId != null
                     });
             }
-        } 
+        }
+
+        public class ReservedBookingList : Specification<Booking, ReservedBookingDTO>
+        {
+            public ReservedBookingList()
+            {
+                Query
+                    .Select(x => new ReservedBookingDTO
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        DateStart = x.DateStart,
+                        DateEnd = x.DateEnd,
+                    })
+                    .Where(x => x.DeveloperId != null);
+            }
+        }
+
+        public class UnReservedBookingList : Specification<Booking, UnReservedBookingDTO>
+        {
+            public UnReservedBookingList()
+            {
+                Query
+                    .Select(x => new UnReservedBookingDTO
+                    {
+                        Id = x.Id,
+                        Name = x.Name
+                    })
+                    .Where(x => x.DeveloperId == null);
+            }
+        }
     }
 }

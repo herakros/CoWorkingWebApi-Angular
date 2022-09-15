@@ -1,6 +1,6 @@
 ﻿namespace CoWorking.Contracts.DTO.BookingDTO
 {
-    public class BookingInfoDTO
+    public class BookingDTO
     {
         public int Id { get; set; }
 

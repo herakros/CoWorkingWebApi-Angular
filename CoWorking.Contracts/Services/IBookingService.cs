@@ -6,12 +6,16 @@ namespace CoWorking.Contracts.Services
     {
         Task AddBookingAsync(CreateBookingDTO model);
 
-        Task<IEnumerable<BookingInfoDTO>> GetAllBookingsAsync();
+        Task<IEnumerable<BookingDTO>> GetAllBookingsAsync();
 
         Task DeleteBookingAsync(int id);
 
-        Task PutBookingAsync(BookingInfoDTO model);
+        Task PutBookingAsync(BookingDTO model);
 
-        Task<BookingInfoDTO> GetBookingByIdAsync(int id);
+        Task<BookingDTO> GetBookingByIdAsync(int id);
+
+        Task<IEnumerable<UnReservedBookingDTO>> GetUnReservedBookingList();
+
+        Task<IEnumerable<ReservedBookingDTO>> GetReservedBookingList();
     }
 }

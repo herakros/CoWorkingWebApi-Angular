@@ -41,15 +41,15 @@ namespace CoWorking.Core.Services
             await _bookingRepository.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<BookingInfoDTO>> GetAllBookingsAsync()
+        public async Task<IEnumerable<BookingDTO>> GetAllBookingsAsync()
         {
-            var specification = new Bookings.BookingInfoList();
+            var specification = new Bookings.BookingList();
             var bookings = await _bookingRepository.GetListBySpecAsync(specification);
 
             return bookings;
-        }
+        }       
 
-        public async Task<BookingInfoDTO> GetBookingByIdAsync(int id)
+        public async Task<BookingDTO> GetBookingByIdAsync(int id)
         {
             var booking = await _bookingRepository.GetByKeyAsync(id);
             if (booking == null)
@@ -58,13 +58,29 @@ namespace CoWorking.Core.Services
                     "Booking not found!");
             }
 
-            var bookingDTO = new BookingInfoDTO();
+            var bookingDTO = new BookingDTO();
             _mapper.Map(booking, bookingDTO);
 
             return bookingDTO;
         }
 
-        public async Task PutBookingAsync(BookingInfoDTO model)
+        public Task<IEnumerable<ReservedBookingDTO>> GetReservedBookingList()
+        {
+            var specification = new Bookings.ReservedBookingList();
+            var bookings = _bookingRepository.GetListBySpecAsync(specification);
+
+            return bookings;
+        }
+
+        public Task<IEnumerable<UnReservedBookingDTO>> GetUnReservedBookingList()
+        {
+            var specification = new Bookings.UnReservedBookingList();
+            var bookings = _bookingRepository.GetListBySpecAsync(specification);
+
+            return bookings;
+        }
+
+        public async Task PutBookingAsync(BookingDTO model)
         {
             var booking = await _bookingRepository.GetByKeyAsync(model.Id);
 

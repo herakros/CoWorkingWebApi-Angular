@@ -20,8 +20,10 @@ import { UserEditComponent } from './presentation/admin-components/user-edit/use
 import { AdminService } from './core/services/Admin.service';
 import { AdminRoleGuard } from './core/guards/admin-role-guard';
 import { AuthGuard } from './core/guards/auth-guard.service';
-import { BookingsListComponent } from './presentation/admin-components/bookings-list/bookings-list.component';
+import { AdminBookingListComponent } from './presentation/admin-components/admin-booking-list/admin-booking-list.component';
 import { EditBookingComponent } from './presentation/admin-components/edit-booking/edit-booking.component';
+import { BookingListComponent } from './presentation/booking-components/booking-list/booking-list.component';
+import { UserRoleGuard } from './core/guards/user-role-guard';
 
 @NgModule({
   declarations: [
@@ -34,8 +36,9 @@ import { EditBookingComponent } from './presentation/admin-components/edit-booki
     AddBookingComponent,
     UserListComponent,
     UserEditComponent,
-    BookingsListComponent,
-    EditBookingComponent
+    AdminBookingListComponent,
+    EditBookingComponent,
+    BookingListComponent
   ],
   imports: [
     BrowserModule,
@@ -51,6 +54,7 @@ import { EditBookingComponent } from './presentation/admin-components/edit-booki
     AuthenticationService,
     AdminService,
     AdminRoleGuard,
+    UserRoleGuard,
     AuthGuard
   ],
   bootstrap: [AppComponent]
