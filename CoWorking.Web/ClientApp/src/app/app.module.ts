@@ -24,6 +24,7 @@ import { AdminBookingListComponent } from './presentation/admin-components/admin
 import { EditBookingComponent } from './presentation/admin-components/edit-booking/edit-booking.component';
 import { BookingListComponent } from './presentation/booking-components/booking-list/booking-list.component';
 import { UserRoleGuard } from './core/guards/user-role-guard';
+import { BookingViewComponent } from './presentation/booking-components/booking-view/booking-view.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { UserRoleGuard } from './core/guards/user-role-guard';
     UserEditComponent,
     AdminBookingListComponent,
     EditBookingComponent,
-    BookingListComponent
+    BookingListComponent,
+    BookingViewComponent
   ],
   imports: [
     BrowserModule,

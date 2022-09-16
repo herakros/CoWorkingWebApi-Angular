@@ -46,8 +46,10 @@ namespace CoWorking.Contracts.Data.Entities.BookingEntity
                     .Select(x => new UnReservedBookingDTO
                     {
                         Id = x.Id,
-                        Name = x.Name
+                        Name = x.Name,
+                        CommentsCount = x.Comments.Count
                     })
+                    .Include(x => x.Comments)
                     .Where(x => x.DeveloperId == null);
             }
         }
