@@ -34,5 +34,12 @@ namespace CoWorking.Web.Controllers
             var result = await _bookingService.GetUnReservedBookingList();
             return Ok(result);
         }
+
+        [HttpGet("bookings/{id}")]
+        public async Task<IActionResult> GetBookingById(int id)
+        {
+            var result = _bookingService.GetBookingByIdWithUserAsync(id);
+            return Ok(result);
+        }
     }
 }

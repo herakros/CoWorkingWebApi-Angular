@@ -1,5 +1,6 @@
 ﻿using Ardalis.Specification;
 using CoWorking.Contracts.DTO.BookingDTO;
+using CoWorking.Contracts.DTO.UserDTO;
 
 namespace CoWorking.Contracts.Data.Entities.BookingEntity
 {
@@ -51,6 +52,17 @@ namespace CoWorking.Contracts.Data.Entities.BookingEntity
                     })
                     .Include(x => x.Comments)
                     .Where(x => x.DeveloperId == null);
+            }
+        } 
+
+        public class BookingWithUserAndComments : Specification<Booking>
+        {
+            public BookingWithUserAndComments(int id)
+            {
+                Query
+                    .Where(x => x.Id == id)
+                    .Include(x => x.Developer)
+                    .Include(x => x.Comments);
             }
         }
     }

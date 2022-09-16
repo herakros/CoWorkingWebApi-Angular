@@ -14,6 +14,8 @@ namespace CoWorking.Contracts.Services
 
         Task<BookingDTO> GetBookingByIdAsync(int id);
 
+        Task<BookingDTO> GetBookingByIdWithUserAsync(int id);
+
         Task<IEnumerable<UnReservedBookingDTO>> GetUnReservedBookingList();
 
         Task<IEnumerable<ReservedBookingDTO>> GetReservedBookingList();
