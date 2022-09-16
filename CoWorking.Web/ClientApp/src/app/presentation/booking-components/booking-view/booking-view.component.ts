@@ -9,7 +9,6 @@ import { HomeService } from 'src/app/core/services/Home.service';
 })
 export class BookingViewComponent implements OnInit {
 
-  
   bookingId: number;
 
   constructor(private homeService: HomeService,

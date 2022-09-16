@@ -19,13 +19,9 @@ export class BookingListComponent implements OnInit {
   ngOnInit() {
     this.service.getReservedBooking().subscribe((data: ReservedBooking[]) => {
       this.reservedBookings = data;
-      console.log("re")
-      console.log(data)
     });
     this.service.getUnReservedBooking().subscribe((data: UnReservedBooking[]) => {
       this.unReservedBooking = data;
-      console.log("un")
-      console.log(data)
     });
   }
 
