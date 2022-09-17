@@ -64,11 +64,23 @@ namespace CoWorking.Core.Services
             return bookingDTO;
         }
 
-        public async Task<BookingDTO> GetBookingByIdWithUserAsync(int id)
+        public async Task<BookingInfoDTO> GetBookingByIdWithUserAsync(int id)
         {
             var specification = new Bookings.BookingWithUserAndComments(id);
             var booking = await _bookingRepository.GetFirstBySpecAsync(specification);
-            return null;
+
+            var bookingDTO = new BookingInfoDTO();
+            _mapper.Map(booking, bookingDTO);
+
+            if(booking.Developer != null)
+            {
+                var userBookingDTO = new UserBookingInfoDTO();
+                _mapper.Map(booking, userBookingDTO);
+
+                bookingDTO.User = userBookingDTO;
+            }
+
+            return bookingDTO;
         }
 
         public Task<IEnumerable<ReservedBookingDTO>> GetReservedBookingList()

@@ -60,9 +60,9 @@ namespace CoWorking.Contracts.Data.Entities.BookingEntity
             public BookingWithUserAndComments(int id)
             {
                 Query
-                    .Where(x => x.Id == id)
                     .Include(x => x.Developer)
-                    .Include(x => x.Comments);
+                    .Include(x => x.Comments)
+                    .Where(x => x.Id == id);
             }
         }
     }

@@ -38,7 +38,7 @@ namespace CoWorking.Web.Controllers
         [HttpGet("bookings/{id}")]
         public async Task<IActionResult> GetBookingById(int id)
         {
-            var result = _bookingService.GetBookingByIdWithUserAsync(id);
+            var result = await _bookingService.GetBookingByIdWithUserAsync(id);
             return Ok(result);
         }
     }
