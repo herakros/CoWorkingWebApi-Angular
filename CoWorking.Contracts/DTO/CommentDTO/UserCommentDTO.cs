@@ -1,6 +1,6 @@
-﻿namespace CoWorking.Contracts.DTO.BookingDTO
+﻿namespace CoWorking.Contracts.DTO.CommentDTO
 {
-    public class UserBookingInfoDTO
+    public class UserCommentDTO
     {
         public string Name { get; set; }
 

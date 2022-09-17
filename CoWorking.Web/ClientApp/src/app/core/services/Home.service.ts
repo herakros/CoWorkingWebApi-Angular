@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { bookingInfoUrl, reservedBookingListUrl, unReservedBookingListUrl } from 'src/app/configs/api-endpoints';
+import { BookingInfoDTO } from '../models/booking/BookingInfoDTO';
 import { ReservedBooking } from '../models/booking/ReservedBooking';
 import { UnReservedBooking } from '../models/booking/UnReservedBooking';
 
@@ -30,7 +31,7 @@ export class HomeService {
     return this.http.get<UnReservedBooking[]>(unReservedBookingListUrl, this.httpOption);
   }
 
-  getBookingById(id: number) : Observable<void> {
-    return this.http.get<void>(bookingInfoUrl + id, this.httpOption);
+  getBookingById(id: number) : Observable<BookingInfoDTO> {
+    return this.http.get<BookingInfoDTO>(bookingInfoUrl + id, this.httpOption);
   }
 }

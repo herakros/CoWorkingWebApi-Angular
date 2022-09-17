@@ -62,6 +62,7 @@ namespace CoWorking.Contracts.Data.Entities.BookingEntity
                 Query
                     .Include(x => x.Developer)
                     .Include(x => x.Comments)
+                    .ThenInclude(x => x.User)
                     .Where(x => x.Id == id);
             }
         }

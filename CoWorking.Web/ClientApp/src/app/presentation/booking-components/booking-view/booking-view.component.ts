@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BookingInfoDTO } from 'src/app/core/models/booking/BookingInfoDTO';
 import { HomeService } from 'src/app/core/services/Home.service';
 
 @Component({
@@ -10,6 +11,7 @@ import { HomeService } from 'src/app/core/services/Home.service';
 export class BookingViewComponent implements OnInit {
 
   bookingId: number;
+  bookingInfo: BookingInfoDTO;
 
   constructor(private homeService: HomeService,
     private activateRoute: ActivatedRoute,
@@ -20,14 +22,10 @@ export class BookingViewComponent implements OnInit {
       if(x.has('id')) {
         this.bookingId = Number(x.get('id'));
         if(this.bookingId) {
-          this.homeService.getBookingById(this.bookingId).subscribe(
-            () => {
-
-            },
-            err => {
-              alert(err);
-            }
-          );
+          this.homeService.getBookingById(this.bookingId).subscribe((data: BookingInfoDTO) => {
+            this.bookingInfo = data;
+            console.log(data);
+          });
         }
       }
       else {

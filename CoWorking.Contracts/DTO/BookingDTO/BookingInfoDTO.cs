@@ -1,4 +1,5 @@
 ﻿using CoWorking.Contracts.Data.Entities.CommentEntity;
+using CoWorking.Contracts.DTO.CommentDTO;
 
 namespace CoWorking.Contracts.DTO.BookingDTO
 {
@@ -14,7 +15,7 @@ namespace CoWorking.Contracts.DTO.BookingDTO
 
         public DateTime? DateEnd { get; set; }
 
-        public IEnumerable<Comment> Comments { get; set; }
+        public List<CommentInfoDTO> Comments { get; set; }
 
         public UserBookingInfoDTO User { get; set; }
     }

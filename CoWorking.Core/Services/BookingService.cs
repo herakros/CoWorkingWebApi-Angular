@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using CoWorking.Contracts.Data;
 using CoWorking.Contracts.Data.Entities.BookingEntity;
+using CoWorking.Contracts.Data.Entities.CommentEntity;
 using CoWorking.Contracts.DTO.BookingDTO;
+using CoWorking.Contracts.DTO.CommentDTO;
 using CoWorking.Contracts.Exceptions;
 using CoWorking.Contracts.Services;
 
@@ -78,6 +80,14 @@ namespace CoWorking.Core.Services
                 _mapper.Map(booking, userBookingDTO);
 
                 bookingDTO.User = userBookingDTO;
+            }
+
+            if(booking.Comments.Count > 0)
+            {
+                var commentsDTO = new List<CommentInfoDTO>();
+                _mapper.Map(booking.Comments, commentsDTO);
+
+                bookingDTO.Comments = commentsDTO;
             }
 
             return bookingDTO;
