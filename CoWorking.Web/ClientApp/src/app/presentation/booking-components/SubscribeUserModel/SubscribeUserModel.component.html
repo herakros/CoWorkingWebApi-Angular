@@ -1,0 +1,32 @@
+<div class="modal-header">
+  <h4 class="modal-title">Reservation</h4>
+  <button type="button" class="btn-close"
+   (click)="activeModal.dismiss('Cross click')">
+  </button>
+</div>
+<form [formGroup]="myForm" (ngSubmit)="submitForm()">
+  <div class="modal-boy">
+    <div class="container">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text"
+          class="form-control"
+          formControlName="username" />
+      </div>
+      <div class="form-group">
+        <label for="dateStart">Date start</label>
+        <input type="date" class="form-control" formControlName="dateStart">
+      </div>
+      <div class="form-group">
+        <label for="dateEnd">Date end</label>
+        <input type="date" class="form-control" formControlName="dateEnd">
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-success"
+      [disabled]="!myForm.valid">
+      Subscribe
+    </button>
+  </div>
+</form>

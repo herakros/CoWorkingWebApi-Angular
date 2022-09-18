@@ -28,6 +28,18 @@ namespace CoWorking.Core.Services
 
         public async Task SubscribeUserToBookingAsync(SubscribeUserDTO model)
         {
+            if(model.DateStart < DateTime.Today)
+            {
+                throw new HttpException(System.Net.HttpStatusCode.BadRequest,
+                    "The date cannot be less than today!");
+            }
+
+            if(model.DateEnd <= DateTime.Today && model.DateEnd <= model.DateStart)
+            {
+                throw new HttpException(System.Net.HttpStatusCode.BadRequest,
+                    "Date of end cannot be less or equal of date start!");
+            }
+
             var user = await _userManager.FindByNameAsync(model.UserName);
 
             if (user == null)

@@ -26,7 +26,7 @@
         </li>
       </ul>
 
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngIf="getRole() == 'Manager'">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngIf="getRole() == 'Manager' || getRole() == 'Developer'">
         <li class="nav-item">
           <a class="fw-bolder text-light nav-link" href="home">Home</a>
         </li>

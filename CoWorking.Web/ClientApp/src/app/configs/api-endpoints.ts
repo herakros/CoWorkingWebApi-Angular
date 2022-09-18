@@ -15,4 +15,7 @@ export const reservedBookingListUrl = baseUrl + homeUrl + 'bookings/reserved';
 export const unReservedBookingListUrl = baseUrl + homeUrl + 'bookings/unreserved';
 export const bookingInfoUrl = baseUrl + homeUrl + 'bookings/';
 
-export const addCommentUrl = homeUrl + 'comments';
+export const addCommentUrl = baseUrl + homeUrl + 'comments';
+
+export const managerUrl = '/manager/';
+export const subscribeUserUrl = baseUrl + managerUrl + 'subscribe';

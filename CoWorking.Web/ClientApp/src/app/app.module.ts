@@ -26,6 +26,9 @@ import { BookingListComponent } from './presentation/booking-components/booking-
 import { UserRoleGuard } from './core/guards/user-role-guard';
 import { BookingViewComponent } from './presentation/booking-components/booking-view/booking-view.component';
 import { CommentService } from './core/services/Comment.service';
+import { SubscribeUserModelComponent } from './presentation/booking-components/SubscribeUserModel/SubscribeUserModel.component';
+import { HomeService } from './core/services/Home.service';
+import { ManagerService } from './core/services/Manager.service';
 
 @NgModule({
   declarations: [
@@ -41,7 +44,8 @@ import { CommentService } from './core/services/Comment.service';
     AdminBookingListComponent,
     EditBookingComponent,
     BookingListComponent,
-    BookingViewComponent
+    BookingViewComponent,
+    SubscribeUserModelComponent
   ],
   imports: [
     BrowserModule,
@@ -57,6 +61,8 @@ import { CommentService } from './core/services/Comment.service';
     AuthenticationService,
     AdminService,
     CommentService,
+    HomeService,
+    ManagerService,
     AdminRoleGuard,
     UserRoleGuard,
     AuthGuard
