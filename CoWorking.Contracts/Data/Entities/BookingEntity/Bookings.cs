@@ -66,5 +66,14 @@ namespace CoWorking.Contracts.Data.Entities.BookingEntity
                     .Where(x => x.Id == id);
             }
         }
+
+        public class IsBookingHasUser : Specification<Booking>
+        {
+            public IsBookingHasUser(string userId)
+            {
+                Query
+                    .Where(x => x.DeveloperId == userId);
+            }
+        }
     }
 }

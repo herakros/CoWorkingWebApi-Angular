@@ -5,6 +5,7 @@ using CoWorking.Contracts.Data.Entities.UserEntity;
 using CoWorking.Contracts.DTO.AdminPanelDTO;
 using CoWorking.Contracts.DTO.BookingDTO;
 using CoWorking.Contracts.DTO.CommentDTO;
+using CoWorking.Contracts.DTO.ManagerDTO;
 using CoWorking.Contracts.DTO.UserDTO;
 using CoWorking.Core.Services;
 
@@ -75,6 +76,10 @@ namespace CoWorking.Core.Mapper
                 .ForMember(dest => dest.Text, act => act.MapFrom(src => src.Text))
                 .ForMember(dest => dest.UserId, act => act.MapFrom(src => src.UserId))
                 .ForMember(dest => dest.BookingId, act => act.MapFrom(src => src.BookingId));
+
+            CreateMap<SubscribeUserDTO, Booking>()
+                .ForMember(dest => dest.DateStart, act => act.MapFrom(src => src.DateStart))
+                .ForMember(dest => dest.DateEnd, act => act.MapFrom(src => src.DateEnd));
         }
     }
 }

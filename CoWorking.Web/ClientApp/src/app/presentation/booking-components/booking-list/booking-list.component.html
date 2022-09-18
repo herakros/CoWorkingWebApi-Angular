@@ -13,6 +13,7 @@
                           <th scope="col">#</th>
                           <th scope="col">Name</th>
                           <th scope="col">Comments</th>
+                          <th *ngIf="getUserRole() == 'Manager'">Subscribe</th>
                           <th></th>
                       </tr>
                   </thead>
@@ -23,8 +24,9 @@
                           <h5 class="font-medium mb-0">{{unreserved.name}}</h5>
                       </td>
                       <td>{{unreserved.commentsCount}}</td>
+                      <td *ngIf="getUserRole() != 'Manager'">Free</td>
+                      <td *ngIf="getUserRole() == 'Manager'" class="text-right"><a class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i></a></td>
                       <td class="text-right"><a class="btn btn-sm btn-primary" [routerLink]="['/home/bookings/', unreserved.id]"><i class="fa fa-eye"></i></a></td>
-                      <td>Free</td>
                     </tr>
                   </tbody>
               </table>
