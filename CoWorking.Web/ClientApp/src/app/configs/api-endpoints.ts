@@ -9,3 +9,13 @@ export const refreshTokenUrl = authenticationServiceUrl + 'refresh-token';
 export const adminUrl = '/admin/'
 export const adminUsersUrl = baseUrl + adminUrl + 'users/';
 export const adminBookingsUrl = baseUrl + adminUrl + 'bookings/';
+
+export const homeUrl = '/home/'
+export const reservedBookingListUrl = baseUrl + homeUrl + 'bookings/reserved';
+export const unReservedBookingListUrl = baseUrl + homeUrl + 'bookings/unreserved';
+export const bookingInfoUrl = baseUrl + homeUrl + 'bookings/';
+
+export const addCommentUrl = baseUrl + homeUrl + 'comments';
+
+export const managerUrl = '/manager/';
+export const subscribeUserUrl = baseUrl + managerUrl + 'subscribe';

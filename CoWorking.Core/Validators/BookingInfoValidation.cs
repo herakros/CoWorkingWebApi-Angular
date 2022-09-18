@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace CoWorking.Core.Validators
 {
-    public class BookingInfoValidation : AbstractValidator<BookingInfoDTO>
+    public class BookingInfoValidation : AbstractValidator<BookingDTO>
     {
         public BookingInfoValidation()
         {

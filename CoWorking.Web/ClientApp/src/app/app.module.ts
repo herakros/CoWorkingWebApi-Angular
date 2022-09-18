@@ -20,8 +20,15 @@ import { UserEditComponent } from './presentation/admin-components/user-edit/use
 import { AdminService } from './core/services/Admin.service';
 import { AdminRoleGuard } from './core/guards/admin-role-guard';
 import { AuthGuard } from './core/guards/auth-guard.service';
-import { BookingsListComponent } from './presentation/admin-components/bookings-list/bookings-list.component';
+import { AdminBookingListComponent } from './presentation/admin-components/admin-booking-list/admin-booking-list.component';
 import { EditBookingComponent } from './presentation/admin-components/edit-booking/edit-booking.component';
+import { BookingListComponent } from './presentation/booking-components/booking-list/booking-list.component';
+import { UserRoleGuard } from './core/guards/user-role-guard';
+import { BookingViewComponent } from './presentation/booking-components/booking-view/booking-view.component';
+import { CommentService } from './core/services/Comment.service';
+import { SubscribeUserModelComponent } from './presentation/booking-components/SubscribeUserModel/SubscribeUserModel.component';
+import { HomeService } from './core/services/Home.service';
+import { ManagerService } from './core/services/Manager.service';
 
 @NgModule({
   declarations: [
@@ -34,8 +41,11 @@ import { EditBookingComponent } from './presentation/admin-components/edit-booki
     AddBookingComponent,
     UserListComponent,
     UserEditComponent,
-    BookingsListComponent,
-    EditBookingComponent
+    AdminBookingListComponent,
+    EditBookingComponent,
+    BookingListComponent,
+    BookingViewComponent,
+    SubscribeUserModelComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +60,11 @@ import { EditBookingComponent } from './presentation/admin-components/edit-booki
     ErrorInterceptorProvider,
     AuthenticationService,
     AdminService,
+    CommentService,
+    HomeService,
+    ManagerService,
     AdminRoleGuard,
+    UserRoleGuard,
     AuthGuard
   ],
   bootstrap: [AppComponent]

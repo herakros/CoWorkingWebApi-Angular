@@ -12,15 +12,5 @@ namespace CoWorking.Contracts.Services
         Task DeleteUserAsync(string id);
 
         Task<UserInfoDTO> GetUserByIdAsync(string id);
-
-        Task AddBookingAsync(CreateBookingDTO model);
-
-        Task<IEnumerable<BookingInfoDTO>> GetAllBooingsAsync();
-
-        Task DeleteBookingAsync(int id);
-
-        Task PutBookingAsync(BookingInfoDTO model);
-
-        Task<BookingInfoDTO> GetBookingByIdAsync(int id);
     }
 }

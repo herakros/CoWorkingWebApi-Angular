@@ -1,4 +1,7 @@
-﻿namespace CoWorking.Contracts.DTO.BookingDTO
+﻿using CoWorking.Contracts.Data.Entities.CommentEntity;
+using CoWorking.Contracts.DTO.CommentDTO;
+
+namespace CoWorking.Contracts.DTO.BookingDTO
 {
     public class BookingInfoDTO
     {
@@ -12,6 +15,8 @@
 
         public DateTime? DateEnd { get; set; }
 
-        public bool Reserved { get; set; }
+        public List<CommentInfoDTO> Comments { get; set; }
+
+        public UserBookingInfoDTO User { get; set; }
     }
 }

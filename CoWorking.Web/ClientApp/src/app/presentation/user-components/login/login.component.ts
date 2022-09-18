@@ -33,11 +33,9 @@ export class LoginComponent implements OnInit {
           if(this.service.currentUser.role == "Admin") {
             this.router.navigate(['admin/users']);
           }
-          if(this.service.currentUser.role == "Manager") {
-            this.router.navigate(['manager']);
-          }
-          if(this.service.currentUser.role == "Developer") {
-            this.router.navigate(['developer']);
+          if(this.service.currentUser.role == "Manager"
+          || this.service.currentUser.role == "Developer") {
+            this.router.navigate(['home']);
           }
         },
         err => {
