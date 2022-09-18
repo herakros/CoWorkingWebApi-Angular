@@ -17,7 +17,7 @@ export class AddBookingComponent implements OnInit {
   constructor(private service: AdminService,
     private router: Router) {
       this.bookingForm = new FormGroup({
-        name: new FormControl("", Validators.required),
+        name: new FormControl("", [Validators.required]),
         description: new FormControl("", [Validators.required])
       });
      }
