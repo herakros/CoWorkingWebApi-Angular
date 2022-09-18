@@ -1,10 +1,11 @@
-﻿using CoWorking.Contracts.Services;
+﻿using CoWorking.Contracts.DTO.CommentDTO;
+using CoWorking.Contracts.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoWorking.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Manager, Developer")]
     [ApiController]
     [Route("api/[controller]")]
     public class HomeController : ControllerBase
@@ -40,6 +41,13 @@ namespace CoWorking.Web.Controllers
         {
             var result = await _bookingService.GetBookingByIdWithUserAsync(id);
             return Ok(result);
+        }
+
+        [HttpPost("comments")]
+        public async Task<IActionResult> AddComment([FromBody] AddCommentDTO model)
+        {
+            await _commentService.AddCommentAsync(model);
+            return Ok();
         }
     }
 }

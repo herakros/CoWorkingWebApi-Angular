@@ -70,6 +70,11 @@ namespace CoWorking.Core.Mapper
                 .ForMember(dest => dest.Surname, act => act.MapFrom(src => src.Surname))
                 .ForMember(dest => dest.UserName, act => act.MapFrom(src => src.UserName))
                 .ForMember(dest => dest.Email, act => act.MapFrom(src => src.Email));
+
+            CreateMap<AddCommentDTO, Comment>()
+                .ForMember(dest => dest.Text, act => act.MapFrom(src => src.Text))
+                .ForMember(dest => dest.UserId, act => act.MapFrom(src => src.UserId))
+                .ForMember(dest => dest.BookingId, act => act.MapFrom(src => src.BookingId));
         }
     }
 }

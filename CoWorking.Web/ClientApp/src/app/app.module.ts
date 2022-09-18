@@ -25,6 +25,7 @@ import { EditBookingComponent } from './presentation/admin-components/edit-booki
 import { BookingListComponent } from './presentation/booking-components/booking-list/booking-list.component';
 import { UserRoleGuard } from './core/guards/user-role-guard';
 import { BookingViewComponent } from './presentation/booking-components/booking-view/booking-view.component';
+import { CommentService } from './core/services/Comment.service';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { BookingViewComponent } from './presentation/booking-components/booking-
     ErrorInterceptorProvider,
     AuthenticationService,
     AdminService,
+    CommentService,
     AdminRoleGuard,
     UserRoleGuard,
     AuthGuard
