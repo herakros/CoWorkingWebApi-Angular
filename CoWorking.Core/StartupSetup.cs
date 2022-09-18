@@ -20,6 +20,7 @@ namespace CoWorking.Core
             services.AddScoped<IManagerService, ManagerService>();
             services.AddScoped<ICommentService, CommentService>();
             services.AddScoped<IBookingService, BookingService>();
+            services.AddScoped<IDeveloperService, DeveloperService>();
         }
 
         public static void ConfigJwtOptions(this IServiceCollection services, IConfiguration config)

@@ -29,6 +29,7 @@ import { CommentService } from './core/services/Comment.service';
 import { SubscribeUserModelComponent } from './presentation/booking-components/SubscribeUserModel/SubscribeUserModel.component';
 import { HomeService } from './core/services/Home.service';
 import { ManagerService } from './core/services/Manager.service';
+import { DeveloperService } from './core/services/Developer.service';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { ManagerService } from './core/services/Manager.service';
     CommentService,
     HomeService,
     ManagerService,
+    DeveloperService,
     AdminRoleGuard,
     UserRoleGuard,
     AuthGuard

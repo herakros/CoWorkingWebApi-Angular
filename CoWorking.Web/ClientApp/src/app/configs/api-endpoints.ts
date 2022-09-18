@@ -19,3 +19,5 @@ export const addCommentUrl = baseUrl + homeUrl + 'comments';
 
 export const managerUrl = '/manager/';
 export const subscribeUserUrl = baseUrl + managerUrl + 'subscribe';
+
+export const developerUrl = '/developer/';
