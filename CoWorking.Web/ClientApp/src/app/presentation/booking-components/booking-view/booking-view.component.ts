@@ -51,10 +51,12 @@ export class BookingViewComponent implements OnInit {
       this.comment = Object.assign({}, this.commentForm.value);
       this.comment.bookingId = this.bookingId;
       this.comment.userId = this.authService.currentUser.id;
-      console.log(this.comment);
       this.commentService.addComment(this.comment).subscribe(
-        () => {
+        (data) => {
+          console.log(data);
+          this.bookingInfo.comments.push(data);
 
+          this.commentForm.reset();
         },
         err => {
           alert(err.error);

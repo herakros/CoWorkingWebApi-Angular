@@ -4,6 +4,6 @@ namespace CoWorking.Contracts.Services
 {
     public interface ICommentService
     {
-        Task AddCommentAsync(AddCommentDTO model);
+        Task<CommentInfoDTO> AddCommentAsync(AddCommentDTO model);
     }
 }

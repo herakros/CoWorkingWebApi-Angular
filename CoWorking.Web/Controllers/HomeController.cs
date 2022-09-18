@@ -46,8 +46,8 @@ namespace CoWorking.Web.Controllers
         [HttpPost("comments")]
         public async Task<IActionResult> AddComment([FromBody] AddCommentDTO model)
         {
-            await _commentService.AddCommentAsync(model);
-            return Ok();
+            var result = await _commentService.AddCommentAsync(model);
+            return Ok(result);
         }
     }
 }

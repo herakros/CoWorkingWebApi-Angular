@@ -6,11 +6,6 @@ using CoWorking.Contracts.Data.Entities.UserEntity;
 using CoWorking.Contracts.DTO.CommentDTO;
 using CoWorking.Contracts.Exceptions;
 using CoWorking.Contracts.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CoWorking.Core.Services
 {
@@ -30,7 +25,7 @@ namespace CoWorking.Core.Services
             _userRepository = userRepository;
             _mapper = mapper;
         }
-        public async Task AddCommentAsync(AddCommentDTO model)
+        public async Task<CommentInfoDTO> AddCommentAsync(AddCommentDTO model)
         {
             var booking = await _bookingRepository.GetByKeyAsync(model.BookingId);
 
@@ -56,6 +51,18 @@ namespace CoWorking.Core.Services
 
             await _commentRepository.AddAsync(comment);
             await _commentRepository.SaveChangesAsync();
+
+            var commentInfo = new CommentInfoDTO()
+            {
+                Text = model.Text,
+                DateOfCreate = comment.DateOfCreate
+            };
+
+            var userInfo = new UserCommentDTO();
+            _mapper.Map(user, userInfo);
+            commentInfo.User = userInfo;
+
+            return commentInfo;
         }
     }
 }
