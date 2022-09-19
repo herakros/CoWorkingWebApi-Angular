@@ -5,11 +5,11 @@ import { UserSubscribeToBooking } from 'src/app/core/models/user/UserSubscribeTo
 import { ManagerService } from 'src/app/core/services/Manager.service';
 
 @Component({
-  selector: 'app-SubscribeUserModel',
-  templateUrl: './SubscribeUserModel.component.html',
-  styleUrls: ['./SubscribeUserModel.component.css']
+  selector: 'app-SubscribeUserModal',
+  templateUrl: './SubscribeUserModal.component.html',
+  styleUrls: ['./SubscribeUserModal.component.css']
 })
-export class SubscribeUserModelComponent implements OnInit {
+export class SubscribeUserModalComponent implements OnInit {
 
   @Input() bookingId: number;
 

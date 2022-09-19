@@ -6,7 +6,7 @@ import { ReservedBooking } from 'src/app/core/models/booking/ReservedBooking';
 import { UnReservedBooking } from 'src/app/core/models/booking/UnReservedBooking';
 import { AuthenticationService } from 'src/app/core/services/Authentication.service';
 import { HomeService } from 'src/app/core/services/Home.service';
-import { SubscribeUserModelComponent } from '../SubscribeUserModel/SubscribeUserModel.component';
+import { SubscribeUserModalComponent } from '../SubscribeUserModal/SubscribeUserModal.component';
 
 @Component({
   selector: 'app-booking-list',
@@ -36,7 +36,7 @@ export class BookingListComponent implements OnInit {
   }
 
   openFormModal(bookingId: number) {
-    const modalRef = this.modalService.open(SubscribeUserModelComponent);
+    const modalRef = this.modalService.open(SubscribeUserModalComponent);
     modalRef.componentInstance.bookingId = bookingId;
     modalRef.result.then();
   }
