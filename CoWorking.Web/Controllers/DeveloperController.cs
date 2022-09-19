@@ -1,4 +1,5 @@
-﻿using CoWorking.Contracts.Services;
+﻿using CoWorking.Contracts.DTO.DeveloperDTO;
+using CoWorking.Contracts.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,13 @@ namespace CoWorking.Web.Controllers
         {
             _developerService = developerService;
             _bookingService = bookingService;
+        }
+
+        [HttpPost("is-reservation")]
+        public async Task<IActionResult> UserReservation([FromBody] UserIdDTO model)
+        {
+            var result = await _developerService.IsUserHasReservation(model);
+            return Ok(result);
         }
     }
 }

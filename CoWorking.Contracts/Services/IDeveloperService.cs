@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CoWorking.Contracts.DTO.DeveloperDTO;
 
 namespace CoWorking.Contracts.Services
 {
     public interface IDeveloperService
     {
-
+        Task<UserReservationDTO> IsUserHasReservation(UserIdDTO model); 
     }
 }

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserId } from 'src/app/core/models/user/UserId';
+import { UserReservation } from 'src/app/core/models/user/UserReservation';
 import { AuthenticationService } from 'src/app/core/services/Authentication.service';
+import { DeveloperService } from 'src/app/core/services/Developer.service';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +14,9 @@ export class HeaderComponent implements OnInit {
 
   isUserAuthorization: boolean;
 
-  constructor(private authService: AuthenticationService, private router: Router) {
+  constructor(private authService: AuthenticationService,
+    private router: Router,
+    private developerService: DeveloperService) {
   }
 
   ngOnInit() {
@@ -34,6 +39,23 @@ export class HeaderComponent implements OnInit {
 
   getRole() : string {
     return this.authService.currentUser.role;
+  }
+
+  isUserHasReservation() {
+    let user = new UserId();
+    user.id = this.authService.currentUser.id;
+
+    this.developerService
+    .isUserHasReservation(user)
+    .subscribe((data: UserReservation) => {
+      console.log(data);
+      if(data.isReservation){
+        this.router.navigate([`/home/bookings/${data.bookingId}`]);
+      }
+      else{
+        alert("You don`t have any reservation!");
+      }
+    });
   }
 
 }

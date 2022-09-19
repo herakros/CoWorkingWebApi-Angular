@@ -21,3 +21,4 @@ export const managerUrl = '/manager/';
 export const subscribeUserUrl = baseUrl + managerUrl + 'subscribe';
 
 export const developerUrl = '/developer/';
+export const isDeveloperHasReservationUrl = baseUrl + developerUrl + 'is-reservation/';

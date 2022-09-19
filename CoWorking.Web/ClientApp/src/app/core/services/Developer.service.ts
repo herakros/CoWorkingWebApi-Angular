@@ -1,5 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { isDeveloperHasReservationUrl } from 'src/app/configs/api-endpoints';
+import { UserId } from '../models/user/UserId';
+import { UserReservation } from '../models/user/UserReservation';
 
 @Injectable({
   providedIn: 'root'
@@ -17,5 +21,9 @@ export class DeveloperService {
   }
 
   constructor(private http: HttpClient) { }
+
+  isUserHasReservation(user: UserId) : Observable<UserReservation>{
+    return this.http.post<UserReservation>(isDeveloperHasReservationUrl, user, this.httpOption);
+  }
 
 }
