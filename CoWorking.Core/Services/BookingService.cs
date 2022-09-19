@@ -60,6 +60,7 @@ namespace CoWorking.Core.Services
                     "Booking not found!");
             }
 
+            // You're mixing Automapper with Specification in this class.
             var bookingDTO = new BookingDTO();
             _mapper.Map(booking, bookingDTO);
 

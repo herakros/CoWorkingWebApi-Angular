@@ -25,6 +25,7 @@ namespace CoWorking.Infrastructure.Data
             modelBuilder.ApplyConfiguration(new CommentConfiguration());
         }
 
+        // Conflicts with IdentityUserContext.Users
         public DbSet<User> Users { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
         public DbSet<Booking> Bookings { get; set; }

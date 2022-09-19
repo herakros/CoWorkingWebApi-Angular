@@ -23,7 +23,8 @@ namespace CoWorking.Infrastructure.Data.Repositories
 
         public async Task DeleteAsync(TEntity entity)
         {
-            await Task.Run(() => _dbSet.Remove(entity));
+            // awkward hack?) Remove is not async for a reason.
+            _dbSet.Remove(entity);
         }
 
         public async Task<IEnumerable<TEntity>> GetAllAsync()

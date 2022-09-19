@@ -32,6 +32,9 @@ namespace CoWorking.Core.Services
 
             if (user == null)
             {
+                //1.  here you're mixing services with HTTP domain. 
+                // Services should not worry about communication protocol. 
+                // 2. There already is HttpRequestException 
                 throw new HttpException(System.Net.HttpStatusCode.NotFound,
                     "User not found!");
             }

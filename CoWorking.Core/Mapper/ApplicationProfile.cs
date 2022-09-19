@@ -61,10 +61,8 @@ namespace CoWorking.Core.Mapper
                 .ForMember(dest => dest.Name, act => act.MapFrom(src => src.Developer.Name))
                 .ForMember(dest => dest.Email, act => act.MapFrom(src => src.Developer.Email));
 
-            CreateMap<Comment, CommentInfoDTO>()
-                .ForMember(dest => dest.Text, act => act.MapFrom(src => src.Text))
-                .ForMember(dest => dest.DateOfCreate, act => act.MapFrom(src => src.DateOfCreate))
-                .ForMember(dest => dest.User, act => act.MapFrom(src => src.User));
+            // the true power of Automapper - it can handle props with similar name.
+            CreateMap<Comment, CommentInfoDTO>(MemberList.Destination);
 
             CreateMap<User, UserCommentDTO>()
                 .ForMember(dest => dest.Name, act => act.MapFrom(src => src.Name))

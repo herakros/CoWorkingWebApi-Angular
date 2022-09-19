@@ -12,12 +12,14 @@ import { UserInfoDTO } from '../models/user/UserInfoDTO';
 })
 export class AdminService {
 
+  // some dirty hack I suppose.
   private httpOption = {
     headers: new HttpHeaders({
         Authorization: 'Bearer ' + this.getToken()
     })
   };
 
+  // Admin service should not worry where the token is stored.
   private getToken(): any{
     return localStorage.getItem('token')?.toString();
   }

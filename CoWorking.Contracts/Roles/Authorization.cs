@@ -2,6 +2,7 @@
 {
     public class Authorization
     {
+        // 1 enum = 1 file
         public enum Roles : int
         {
             Admin = 1,

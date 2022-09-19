@@ -10,7 +10,8 @@ export class UserRoleGuard implements CanActivate{
     constructor(private authenticationService: AuthenticationService,
         private router: Router) { }
 
-    canActivate(): boolean {
+  canActivate(): boolean {
+        // aren't they different roles?
         if(this.authenticationService.currentUser.role == "Manager" || "Developer")
         {
             return true;

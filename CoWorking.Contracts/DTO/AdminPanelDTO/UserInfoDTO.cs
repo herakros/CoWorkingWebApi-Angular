@@ -12,6 +12,7 @@
 
         public string Email { get; set; }
 
+        // should be enum
         public string Role { get; set; }
     }
 }

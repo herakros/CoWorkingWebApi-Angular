@@ -6,9 +6,10 @@ namespace CoWorking.Core.Validators
 {
     public static class Validator
     {
-        public static async Task<bool> IsUniqueUserEmail(UserManager<User> manager, string email)
+        public static async Task<bool> IsUserEmailUnique(UserManager<User> manager, string email)
         {
-            return await manager.FindByEmailAsync(email) != null;
+            // Methods name and implementation don't match. You should check if there are NO such emails.
+            return await manager.FindByEmailAsync(email) == null;
         }
 
         public static async Task<bool> IsUniqueUserName(UserManager<User> manager, string username)

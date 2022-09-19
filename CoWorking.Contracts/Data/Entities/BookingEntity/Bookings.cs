@@ -6,6 +6,7 @@ namespace CoWorking.Contracts.Data.Entities.BookingEntity
 {
     public class Bookings
     {
+        // I don't like using a solution template for the architecture. That kills the whole point of training.
         public class BookingList : Specification<Booking, BookingDTO>
         {
             public BookingList()

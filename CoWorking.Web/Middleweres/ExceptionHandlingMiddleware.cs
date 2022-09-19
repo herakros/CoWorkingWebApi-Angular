@@ -36,6 +36,7 @@ namespace CoWorking.Web.Middleweres
            HttpStatusCode statusCode = HttpStatusCode.InternalServerError,
            object errorBody = null)
         {
+            // does nothing
             _ = errorBody ?? new { error = "Unknown error has occured" };
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)statusCode;

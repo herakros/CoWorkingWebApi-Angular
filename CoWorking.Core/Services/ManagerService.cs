@@ -28,6 +28,7 @@ namespace CoWorking.Core.Services
 
         public async Task SubscribeUserToBookingAsync(SubscribeUserDTO model)
         {
+            // You have added fluent validation but didn't use it
             if(model.DateStart < DateTime.Today)
             {
                 throw new HttpException(System.Net.HttpStatusCode.BadRequest,
