@@ -1,5 +1,6 @@
 ﻿using Ardalis.Specification;
 using CoWorking.Contracts.DTO.BookingDTO;
+using CoWorking.Contracts.DTO.DeveloperDTO;
 using CoWorking.Contracts.DTO.UserDTO;
 
 namespace CoWorking.Contracts.Data.Entities.BookingEntity
@@ -73,6 +74,16 @@ namespace CoWorking.Contracts.Data.Entities.BookingEntity
             {
                 Query
                     .Where(x => x.DeveloperId == userId);
+            }
+        }
+
+        public class IsItUserBooking: Specification<Booking>
+        {
+            public IsItUserBooking(UsedBookingIdDTO usedBookingId)
+            {
+                Query
+                    .Where(x => x.DeveloperId == usedBookingId.UserId &&
+                    x.Id == usedBookingId.BookingId);
             }
         }
     }

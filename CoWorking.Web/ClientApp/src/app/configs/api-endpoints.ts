@@ -22,3 +22,4 @@ export const subscribeUserUrl = baseUrl + managerUrl + 'subscribe';
 
 export const developerUrl = '/developer/';
 export const isDeveloperHasReservationUrl = baseUrl + developerUrl + 'is-reservation/';
+export const IsItUserBookingUrl = baseUrl + developerUrl + 'is-it-user-reservation/';

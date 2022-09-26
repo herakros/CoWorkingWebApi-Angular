@@ -22,8 +22,15 @@ namespace CoWorking.Web.Controllers
         [HttpPost("is-reservation")]
         public async Task<IActionResult> UserReservation([FromBody] UserIdDTO model)
         {
-            var result = await _developerService.IsUserHasReservation(model);
+            var result = await _developerService.IsUserHasReservationAsync(model);
             return Ok(result);
+        }
+
+        [HttpPost("is-it-user-reservation")]
+        public async Task<IActionResult> IsItUserBooking([FromBody] UsedBookingIdDTO model)
+        {
+            var retuls = await _developerService.IsItUserBookingAsync(model);
+            return Ok(retuls);
         }
     }
 }

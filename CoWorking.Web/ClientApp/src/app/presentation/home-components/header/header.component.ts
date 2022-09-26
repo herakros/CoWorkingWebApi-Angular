@@ -48,7 +48,6 @@ export class HeaderComponent implements OnInit {
     this.developerService
     .isUserHasReservation(user)
     .subscribe((data: UserReservation) => {
-      console.log(data);
       if(data.isReservation){
         this.router.navigate([`/home/bookings/${data.bookingId}`]);
       }

@@ -12,7 +12,16 @@ namespace CoWorking.Core.Services
         {
             _bookingRepository = bookingRepository;
         }
-        public async Task<UserReservationDTO> IsUserHasReservation(UserIdDTO model)
+
+        public async Task<bool> IsItUserBookingAsync(UsedBookingIdDTO model)
+        {
+            var specification = new Bookings.IsItUserBooking(model);
+            var booking = await _bookingRepository.GetFirstBySpecAsync(specification);
+
+            return booking != null;
+        }
+
+        public async Task<UserReservationDTO> IsUserHasReservationAsync(UserIdDTO model)
         {
             var specification = new Bookings.IsBookingHasUser(model.Id);
             var booking = await _bookingRepository.GetFirstBySpecAsync(specification);

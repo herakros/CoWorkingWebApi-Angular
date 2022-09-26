@@ -24,6 +24,9 @@
                             </div>
                             <div class="rating-list-right text-black">{{bookingInfo.dateEnd | date:'dd.MM.yyyy'}}</div>
                         </div>
+                        <div class="rating-list" *ngIf="isUserReservation">
+                          <button class="btn btn-primary btn-sm">Change reservation</button>
+                        </div>
                     </div>
                     <section class="vh-50" style="background-color: #f4f5f7;" *ngIf="bookingInfo.user != null">
                         <div class="container py-5 h-100">

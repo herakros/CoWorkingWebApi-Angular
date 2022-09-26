@@ -4,6 +4,8 @@ namespace CoWorking.Contracts.Services
 {
     public interface IDeveloperService
     {
-        Task<UserReservationDTO> IsUserHasReservation(UserIdDTO model); 
+        Task<UserReservationDTO> IsUserHasReservationAsync(UserIdDTO model); 
+
+        Task<bool> IsItUserBookingAsync(UsedBookingIdDTO model);
     }
 }

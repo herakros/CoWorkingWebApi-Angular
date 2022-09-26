@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { isDeveloperHasReservationUrl } from 'src/app/configs/api-endpoints';
+import { isDeveloperHasReservationUrl, IsItUserBookingUrl } from 'src/app/configs/api-endpoints';
+import { UserBookingDTO } from '../models/user/UserBookingDTO';
 import { UserId } from '../models/user/UserId';
 import { UserReservation } from '../models/user/UserReservation';
 
@@ -24,6 +25,10 @@ export class DeveloperService {
 
   isUserHasReservation(user: UserId) : Observable<UserReservation>{
     return this.http.post<UserReservation>(isDeveloperHasReservationUrl, user, this.httpOption);
+  }
+
+  isItUserBooking(userBookingDTO: UserBookingDTO) : Observable<boolean>{
+    return this.http.post<boolean>(IsItUserBookingUrl, userBookingDTO, this.httpOption);
   }
 
 }
