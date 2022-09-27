@@ -1,0 +1,20 @@
+<div class="modal-header">
+  <h4 class="modal-title">Change date End</h4>
+  <button type="button" class="btn-close"
+   (click)="activeModal.dismiss('Cross click')">
+  </button>
+</div>
+<form [formGroup]="myForm" (ngSubmit)="submitForm()">
+  <div class="modal-boy">
+      <div class="form-group">
+        <label for="dateOfEnd">Date end</label>
+        <input type="date" class="form-control" formControlName="dateOfEnd">
+      </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-success"
+      [disabled]="!myForm.valid">
+      Save
+    </button>
+  </div>
+</form>

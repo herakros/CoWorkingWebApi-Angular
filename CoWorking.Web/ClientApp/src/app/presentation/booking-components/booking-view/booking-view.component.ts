@@ -4,8 +4,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BookingInfoDTO } from 'src/app/core/models/booking/BookingInfoDTO';
 import { AddCommentDTO } from 'src/app/core/models/comment/AddCommentDTO';
 import { AuthenticationService } from 'src/app/core/services/Authentication.service';
+import { DeveloperService } from 'src/app/core/services/Developer.service';
 import { CommentService } from 'src/app/core/services/Comment.service';
 import { HomeService } from 'src/app/core/services/Home.service';
+import { UserBookingDTO } from 'src/app/core/models/user/UserBookingDTO';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ChangeBookingModalComponent } from '../ChangeBookingModal/ChangeBookingModal.component';
 
 @Component({
   selector: 'app-booking-view',
@@ -17,6 +21,8 @@ export class BookingViewComponent implements OnInit {
   bookingId: number;
   bookingInfo: BookingInfoDTO;
 
+  isUserReservation: boolean;
+
   commentForm: FormGroup;
   comment: AddCommentDTO = new AddCommentDTO();
 
@@ -24,7 +30,9 @@ export class BookingViewComponent implements OnInit {
     private activateRoute: ActivatedRoute,
     private router: Router,
     private authService: AuthenticationService,
-    private commentService: CommentService) {
+    private commentService: CommentService,
+    private developerService: DeveloperService,
+    private modalService: NgbModal) {
       this.commentForm = new FormGroup({
         text: new FormControl("", [Validators.required])
       });
@@ -42,6 +50,19 @@ export class BookingViewComponent implements OnInit {
       }
       else {
         this.router.navigate(['home/bookings']);
+      }
+    })
+
+    let model = new UserBookingDTO();
+    model.userId = this.authService.currentUser.id,
+    model.bookingId = this.bookingId
+
+    this.developerService.isItUserBooking(model).subscribe((data: boolean) => {
+      if(data){
+        this.isUserReservation = true;
+      }
+      else{
+        this.isUserReservation = false;
       }
     })
   }
@@ -62,5 +83,11 @@ export class BookingViewComponent implements OnInit {
           alert(err.error);
         });
     }
+  }
+
+  openFormModal() {
+    const modalRef = this.modalService.open(ChangeBookingModalComponent);
+    modalRef.componentInstance.bookingId = this.bookingId;
+    modalRef.result.then();
   }
 }

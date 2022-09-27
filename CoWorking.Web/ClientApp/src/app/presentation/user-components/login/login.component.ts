@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserLogin } from 'src/app/core/models/user/UserLogin';
 import { AuthenticationService } from 'src/app/core/services/Authentication.service';
+import { EventEmitterService } from 'src/app/core/services/EventEmitter.service';
 import { SignInUpValidator } from 'src/app/core/validators/signInUpValidator';
 
 @Component({
@@ -15,7 +16,9 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   userForLogin: UserLogin = new UserLogin();
 
-  constructor(private service: AuthenticationService, private router: Router) {
+  constructor(private service: AuthenticationService,
+    private router: Router,
+    private eventEmitterService: EventEmitterService) {
     this.loginForm = new FormGroup({
       email: new FormControl("", SignInUpValidator.getEmailValidator()),
       password: new FormControl("", SignInUpValidator.getRequiredValidator())
@@ -32,10 +35,12 @@ export class LoginComponent implements OnInit {
         () => {
           if(this.service.currentUser.role == "Admin") {
             this.router.navigate(['admin/users']);
+            this.eventEmitterService.onComponentInvoke();
           }
           if(this.service.currentUser.role == "Manager"
           || this.service.currentUser.role == "Developer") {
             this.router.navigate(['home']);
+            this.eventEmitterService.onComponentInvoke();
           }
         },
         err => {
