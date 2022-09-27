@@ -7,5 +7,7 @@ namespace CoWorking.Contracts.Services
         Task<UserReservationDTO> IsUserHasReservationAsync(UserIdDTO model); 
 
         Task<bool> IsItUserBookingAsync(UsedBookingIdDTO model);
+
+        Task ChangeBookingDateAsync(ChangeBookingDateDTO model);
     }
 }

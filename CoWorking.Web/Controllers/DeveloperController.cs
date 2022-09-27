@@ -32,5 +32,12 @@ namespace CoWorking.Web.Controllers
             var retuls = await _developerService.IsItUserBookingAsync(model);
             return Ok(retuls);
         }
+
+        [HttpPut("change-booking-date")]
+        public async Task<IActionResult> ChangeBookingDateOfEnd([FromBody] ChangeBookingDateDTO model)
+        {
+            await _developerService.ChangeBookingDateAsync(model);
+            return Ok();
+        }
     }
 }
