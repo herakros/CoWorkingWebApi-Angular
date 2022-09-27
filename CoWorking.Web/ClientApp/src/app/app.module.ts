@@ -31,6 +31,7 @@ import { HomeService } from './core/services/Home.service';
 import { ManagerService } from './core/services/Manager.service';
 import { DeveloperService } from './core/services/Developer.service';
 import { ChangeBookingModalComponent } from './presentation/booking-components/ChangeBookingModal/ChangeBookingModal.component';
+import { EventEmitterService } from './core/services/EventEmitter.service';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { ChangeBookingModalComponent } from './presentation/booking-components/C
     HomeService,
     ManagerService,
     DeveloperService,
+    EventEmitterService,
     AdminRoleGuard,
     UserRoleGuard,
     AuthGuard

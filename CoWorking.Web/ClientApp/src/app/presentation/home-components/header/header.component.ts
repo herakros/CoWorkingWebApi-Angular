@@ -4,6 +4,7 @@ import { UserId } from 'src/app/core/models/user/UserId';
 import { UserReservation } from 'src/app/core/models/user/UserReservation';
 import { AuthenticationService } from 'src/app/core/services/Authentication.service';
 import { DeveloperService } from 'src/app/core/services/Developer.service';
+import { EventEmitterService } from 'src/app/core/services/EventEmitter.service';
 
 @Component({
   selector: 'app-header',
@@ -16,7 +17,14 @@ export class HeaderComponent implements OnInit {
 
   constructor(private authService: AuthenticationService,
     private router: Router,
-    private developerService: DeveloperService) {
+    private developerService: DeveloperService,
+    private eventEmitterService: EventEmitterService) {
+      if(this.eventEmitterService.subsVar == undefined) {
+        this.eventEmitterService.subsVar = this.eventEmitterService.
+        invokeComponentFunction.subscribe(() => {
+          this.ngOnInit();
+        });
+      }
   }
 
   ngOnInit() {
