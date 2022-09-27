@@ -7,9 +7,9 @@ import { AuthenticationService } from 'src/app/core/services/Authentication.serv
 import { DeveloperService } from 'src/app/core/services/Developer.service';
 import { CommentService } from 'src/app/core/services/Comment.service';
 import { HomeService } from 'src/app/core/services/Home.service';
-import { UserId } from 'src/app/core/models/user/UserId';
-import { UserReservation } from 'src/app/core/models/user/UserReservation';
 import { UserBookingDTO } from 'src/app/core/models/user/UserBookingDTO';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ChangeBookingModalComponent } from '../ChangeBookingModal/ChangeBookingModal.component';
 
 @Component({
   selector: 'app-booking-view',
@@ -31,7 +31,8 @@ export class BookingViewComponent implements OnInit {
     private router: Router,
     private authService: AuthenticationService,
     private commentService: CommentService,
-    private developerService: DeveloperService) {
+    private developerService: DeveloperService,
+    private modalService: NgbModal) {
       this.commentForm = new FormGroup({
         text: new FormControl("", [Validators.required])
       });
@@ -82,5 +83,12 @@ export class BookingViewComponent implements OnInit {
           alert(err.error);
         });
     }
+  }
+
+  openFormModal() {
+
+    const modalRef = this.modalService.open(ChangeBookingModalComponent);
+    modalRef.componentInstance.bookingId = this.bookingId;
+    modalRef.result.then();
   }
 }

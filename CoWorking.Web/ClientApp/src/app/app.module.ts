@@ -30,6 +30,7 @@ import { SubscribeUserModalComponent } from './presentation/booking-components/S
 import { HomeService } from './core/services/Home.service';
 import { ManagerService } from './core/services/Manager.service';
 import { DeveloperService } from './core/services/Developer.service';
+import { ChangeBookingModalComponent } from './presentation/booking-components/ChangeBookingModal/ChangeBookingModal.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { DeveloperService } from './core/services/Developer.service';
     EditBookingComponent,
     BookingListComponent,
     BookingViewComponent,
-    SubscribeUserModalComponent
+    SubscribeUserModalComponent,
+    ChangeBookingModalComponent
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { isDeveloperHasReservationUrl, IsItUserBookingUrl } from 'src/app/configs/api-endpoints';
+import { changeBookingDateUrl, isDeveloperHasReservationUrl, isItUserBookingUrl } from 'src/app/configs/api-endpoints';
+import { ChangeBookingDTO } from '../models/booking/ChangeBookingDTO';
 import { UserBookingDTO } from '../models/user/UserBookingDTO';
 import { UserId } from '../models/user/UserId';
 import { UserReservation } from '../models/user/UserReservation';
@@ -28,7 +29,11 @@ export class DeveloperService {
   }
 
   isItUserBooking(userBookingDTO: UserBookingDTO) : Observable<boolean>{
-    return this.http.post<boolean>(IsItUserBookingUrl, userBookingDTO, this.httpOption);
+    return this.http.post<boolean>(isItUserBookingUrl, userBookingDTO, this.httpOption);
+  }
+
+  changeBookingDateOfEnd(changeBookingDTO: ChangeBookingDTO) : Observable<void>{
+    return this.http.put<void>(changeBookingDateUrl, changeBookingDTO, this.httpOption);
   }
 
 }
