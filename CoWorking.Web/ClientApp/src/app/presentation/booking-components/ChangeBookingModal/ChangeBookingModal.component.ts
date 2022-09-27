@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ChangeBookingDTO } from 'src/app/core/models/booking/ChangeBookingDTO';
 import { AuthenticationService } from 'src/app/core/services/Authentication.service';
@@ -19,7 +20,8 @@ export class ChangeBookingModalComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal,
     private formBuilder: FormBuilder,
     private developerService: DeveloperService,
-    private authService: AuthenticationService) {
+    private authService: AuthenticationService,
+    private router: Router) {
       this.createForm();
      }
 
@@ -43,6 +45,7 @@ export class ChangeBookingModalComponent implements OnInit {
       this.developerService.changeBookingDateOfEnd(changeBookingDate).subscribe(
         () => {
           this.closeModal();
+          this.router.navigate([`home/bookings/${this.bookingId}`]);
         },
         err => {
           alert(err);

@@ -86,7 +86,6 @@ export class BookingViewComponent implements OnInit {
   }
 
   openFormModal() {
-
     const modalRef = this.modalService.open(ChangeBookingModalComponent);
     modalRef.componentInstance.bookingId = this.bookingId;
     modalRef.result.then();
