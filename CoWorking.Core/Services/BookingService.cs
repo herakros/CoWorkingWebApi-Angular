@@ -2,10 +2,12 @@
 using CoWorking.Contracts.Data;
 using CoWorking.Contracts.Data.Entities.BookingEntity;
 using CoWorking.Contracts.Data.Entities.CommentEntity;
+using CoWorking.Contracts.Data.Query;
 using CoWorking.Contracts.DTO.BookingDTO;
 using CoWorking.Contracts.DTO.CommentDTO;
 using CoWorking.Contracts.Exceptions;
 using CoWorking.Contracts.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoWorking.Core.Services
 {
@@ -13,11 +15,15 @@ namespace CoWorking.Core.Services
     {
         private readonly IMapper _mapper;
         private readonly IRepository<Booking> _bookingRepository;
+        private readonly IRepository<Comment> _commentRepository;
+
         public BookingService(IMapper mapper, 
-            IRepository<Booking> bookingRepository)
+            IRepository<Booking> bookingRepository,
+            IRepository<Comment> commentRepository)
         {
             _mapper = mapper;
             _bookingRepository = bookingRepository;
+            _commentRepository = commentRepository;
         }
 
         public async Task AddBookingAsync(CreateBookingDTO model)
@@ -45,10 +51,18 @@ namespace CoWorking.Core.Services
 
         public async Task<IEnumerable<BookingDTO>> GetAllBookingsAsync()
         {
-            var specification = new Bookings.BookingList();
-            var bookings = await _bookingRepository.GetListBySpecAsync(specification);
+            var bookings = _bookingRepository.Query().Select(x => new BookingDTO
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Description = x.Description,
+                DateStart = x.DateStart,
+                DateEnd = x.DateEnd,
+                Reserved = x.DeveloperId != null
+            })
+            .ToList();
 
-            return bookings;
+            return await Task.FromResult(bookings);
         }       
 
         public async Task<BookingDTO> GetBookingByIdAsync(int id)
@@ -68,8 +82,13 @@ namespace CoWorking.Core.Services
 
         public async Task<BookingInfoDTO> GetBookingByIdWithUserAsync(int id)
         {
-            var specification = new Bookings.BookingWithUserAndComments(id);
-            var booking = await _bookingRepository.GetFirstBySpecAsync(specification);
+            var includes = new Includes<Booking>(query =>
+            {
+                return query.Include(x => x.Developer).Include(x => x.Comments).ThenInclude(x => x.User);
+            });
+
+            var booking = _bookingRepository.GetAllAsync(null, includes.Expression)
+                .Result.FirstOrDefault(x => x.Id == id);
 
             var bookingDTO = new BookingInfoDTO();
             _mapper.Map(booking, bookingDTO);
@@ -90,23 +109,37 @@ namespace CoWorking.Core.Services
                 bookingDTO.Comments = commentsDTO;
             }
 
-            return bookingDTO;
+            return await Task.FromResult(bookingDTO);
         }
 
-        public Task<IEnumerable<ReservedBookingDTO>> GetReservedBookingList()
+        public async Task<IEnumerable<ReservedBookingDTO>> GetReservedBookingList()
         {
-            var specification = new Bookings.ReservedBookingList();
-            var bookings = _bookingRepository.GetListBySpecAsync(specification);
+            var bookings = _bookingRepository.Query()
+                .Where(x => x.DeveloperId != null)
+                .Select(x => new ReservedBookingDTO
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    DateStart = x.DateStart,
+                    DateEnd = x.DateEnd,
+                }).ToList();
 
-            return bookings;
+            return await Task.FromResult(bookings);
         }
 
-        public Task<IEnumerable<UnReservedBookingDTO>> GetUnReservedBookingList()
+        public async Task<IEnumerable<UnReservedBookingDTO>> GetUnReservedBookingList()
         {
-            var specification = new Bookings.UnReservedBookingList();
-            var bookings = _bookingRepository.GetListBySpecAsync(specification);
+            var bookings = _bookingRepository.Query()
+                .Where(x => x.DeveloperId == null)
+                .Select(x => new UnReservedBookingDTO
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    CommentsCount = x.Comments.Count
+                }).ToList();
 
-            return bookings;
+
+            return await Task.FromResult(bookings);
         }
 
         public async Task PutBookingAsync(BookingDTO model)

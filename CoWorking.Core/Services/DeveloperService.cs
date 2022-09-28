@@ -49,18 +49,19 @@ namespace CoWorking.Core.Services
             await _bookingRepository.SaveChangesAsync();
         }
 
-        public async Task<bool> IsItUserBookingAsync(UsedBookingIdDTO model)
+        public Task<bool> IsItUserBookingAsync(UsedBookingIdDTO model)
         {
-            var specification = new Bookings.IsItUserBooking(model);
-            var booking = await _bookingRepository.GetFirstBySpecAsync(specification);
+            var booking = _bookingRepository.Query()
+                .Where(x => x.DeveloperId == model.UserId &&
+                x.Id == model.BookingId);
 
-            return booking != null;
+            return Task.FromResult(booking != null);
         }
 
-        public async Task<UserReservationDTO> IsUserHasReservationAsync(UserIdDTO model)
+        public Task<UserReservationDTO> IsUserHasReservationAsync(UserIdDTO model)
         {
-            var specification = new Bookings.IsBookingHasUser(model.Id);
-            var booking = await _bookingRepository.GetFirstBySpecAsync(specification);
+            var booking = _bookingRepository.Query()
+                .FirstOrDefault(x => x.DeveloperId == model.Id);
 
             var userReservation = new UserReservationDTO();
 
@@ -70,7 +71,7 @@ namespace CoWorking.Core.Services
                 userReservation.BookingId = booking.Id;
             }
 
-            return userReservation;
+            return Task.FromResult(userReservation);
         }
     }
 }

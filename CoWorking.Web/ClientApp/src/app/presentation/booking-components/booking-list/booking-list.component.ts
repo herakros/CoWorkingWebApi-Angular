@@ -28,7 +28,9 @@ export class BookingListComponent implements OnInit {
     });
     this.service.getUnReservedBooking().subscribe((data: UnReservedBooking[]) => {
       this.unReservedBooking = data;
+      console.log(data);
     });
+
   }
 
   getUserRole() : string{

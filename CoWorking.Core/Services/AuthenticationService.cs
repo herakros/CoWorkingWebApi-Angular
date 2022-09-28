@@ -89,8 +89,8 @@ namespace CoWorking.Core.Services
 
         public async Task LogoutAsync(UserAutorizationDTO userTokensDTO)
         {
-            var specification = new RefreshTokens.SearchRefreshToken(userTokensDTO.RefreshToken);
-            var refeshTokenFromDb = await _refreshTokenRepository.GetFirstBySpecAsync(specification);
+            var refeshTokenFromDb = _refreshTokenRepository.Query()
+                .FirstOrDefault(x => x.Token == userTokensDTO.RefreshToken);
 
             if (refeshTokenFromDb == null)
             {
@@ -103,8 +103,8 @@ namespace CoWorking.Core.Services
 
         public async Task<UserAutorizationDTO> RefreshTokenAsync(UserAutorizationDTO userTokensDTO)
         {
-            var specification = new RefreshTokens.SearchRefreshToken(userTokensDTO.RefreshToken);
-            var refeshTokenFromDb = await _refreshTokenRepository.GetFirstBySpecAsync(specification);
+            var refeshTokenFromDb = _refreshTokenRepository.Query()
+                .FirstOrDefault(x => x.Token == userTokensDTO.RefreshToken);
 
             if (refeshTokenFromDb == null)
             {

@@ -12,16 +12,13 @@ namespace CoWorking.Core.Services
     public class ManagerService : IManagerService
     {
         private readonly IMapper _mapper;
-        private readonly IRepository<User> _userRepository;
         private readonly IRepository<Booking> _bookingRepository;
         private readonly UserManager<User> _userManager;
         public ManagerService(IMapper mapper,
-            IRepository<User> userRepository,
             UserManager<User> userManager,
             IRepository<Booking> bookingRepository)
         {
             _mapper = mapper;
-            _userRepository = userRepository;
             _userManager = userManager;
             _bookingRepository = bookingRepository;
         }
@@ -62,8 +59,8 @@ namespace CoWorking.Core.Services
                     "This Booking already reserved!");
             }
 
-            var specification = new Bookings.IsBookingHasUser(user.Id);
-            var userBooking = await _bookingRepository.GetFirstBySpecAsync(specification);
+            var userBooking = _bookingRepository.Query()
+                .FirstOrDefault(x => x.DeveloperId == user.Id);
 
             if(userBooking != null)
             {

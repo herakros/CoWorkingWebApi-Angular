@@ -1,4 +1,4 @@
-﻿using Ardalis.Specification;
+﻿using System.Data.Entity;
 using System.Linq.Expressions;
 
 namespace CoWorking.Contracts.Data
@@ -20,5 +20,9 @@ namespace CoWorking.Contracts.Data
         Task AddRangeAsync(List<TEntity> entities);
 
         IQueryable<TEntity> Query(params Expression<Func<TEntity, object>>[] includes);
+
+        Task<IEnumerable<TEntity>> GetAllAsync(Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null);
+        
     }
 }

@@ -42,10 +42,18 @@ namespace CoWorking.Core.Services
 
         public async Task<IEnumerable<UserInfoDTO>> GetAllUsersAsync()
         {
-            var scecification = new Users.UsersWithRole(_userManager);
-            var users = await _userRepository.GetListBySpecAsync(scecification);
+            var users = _userRepository.Query().Select(x => new UserInfoDTO()
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Surname = x.Surname,
+                UserName = x.UserName,
+                Email = x.Email,
+                Role = _userManager.GetRolesAsync(x).Result[0]
+            })
+            .ToList(); 
 
-            return users;
+            return await Task.FromResult(users);
         }
 
         public async Task<UserInfoDTO> GetUserByIdAsync(string id)
@@ -102,9 +110,9 @@ namespace CoWorking.Core.Services
             return model;
         }
 
-        private async Task<string> GetUserRoleAsync(UserManager<User> manager, User user)
+        private Task<string> GetUserRoleAsync(UserManager<User> manager, User user)
         {
-            return manager.GetRolesAsync(user).Result[0];
+            return Task.FromResult(manager.GetRolesAsync(user).Result[0]);
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using Ardalis.Specification;
-using Ardalis.Specification.EntityFrameworkCore;
-using CoWorking.Contracts.Data;
+﻿using CoWorking.Contracts.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -59,6 +57,35 @@ namespace CoWorking.Infrastructure.Data.Repositories
             var query = includes
                 .Aggregate<Expression<Func<TEntity, object>>, 
                 IQueryable<TEntity>>(_dbSet, (current, include) => current.Include(include));
+
+            return query;
+        }
+
+        public async Task<IEnumerable<TEntity>> GetAllAsync(Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, 
+            Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
+        {
+            var result = QueryDb(null, orderBy, includes);
+            return await result.ToListAsync();
+        }
+
+        protected IQueryable<TEntity> QueryDb(Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes)
+        {
+            IQueryable<TEntity> query = _dbContext.Set<TEntity>();
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            if (includes != null)
+            {
+                query = includes(query);
+            }
+
+            if (orderBy != null)
+            {
+                query = orderBy(query);
+            }
 
             return query;
         }
