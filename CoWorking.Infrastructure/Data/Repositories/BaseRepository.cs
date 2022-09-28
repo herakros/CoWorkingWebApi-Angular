@@ -2,6 +2,7 @@
 using Ardalis.Specification.EntityFrameworkCore;
 using CoWorking.Contracts.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace CoWorking.Infrastructure.Data.Repositories
 {
@@ -23,7 +24,9 @@ namespace CoWorking.Infrastructure.Data.Repositories
 
         public async Task DeleteAsync(TEntity entity)
         {
-            await Task.Run(() => _dbSet.Remove(entity));
+            _dbSet.Remove(entity);
+
+            await Task.CompletedTask;
         }
 
         public async Task<IEnumerable<TEntity>> GetAllAsync()
@@ -41,22 +44,6 @@ namespace CoWorking.Infrastructure.Data.Repositories
             await _dbContext.AddRangeAsync(entities);
         }
 
-        public async Task<TEntity> GetFirstBySpecAsync(ISpecification<TEntity> specification)
-        {
-            var res = await ApplySpecification(specification).FirstOrDefaultAsync();
-            return res;
-        }
-
-        public async Task<IEnumerable<TReturn>> GetListBySpecAsync<TReturn>(ISpecification<TEntity, TReturn> specification)
-        {
-            return await ApplySpecification(specification).ToListAsync();
-        }
-
-        public async Task<IEnumerable<TEntity>> GetListBySpecAsync(ISpecification<TEntity> specification)
-        {
-            return await ApplySpecification(specification).ToListAsync();
-        }
-
         public async Task<int> SaveChangesAsync()
         {
             return await _dbContext.SaveChangesAsync();
@@ -67,16 +54,13 @@ namespace CoWorking.Infrastructure.Data.Repositories
             await Task.Run(() => _dbContext.Entry(entity).State = EntityState.Modified);
         }
 
-        private IQueryable<TEntity> ApplySpecification(ISpecification<TEntity> specification)
+        public IQueryable<TEntity> Query(params Expression<Func<TEntity, object>>[] includes)
         {
-            var evaluator = new SpecificationEvaluator();
-            return evaluator.GetQuery(_dbSet, specification);
-        }
+            var query = includes
+                .Aggregate<Expression<Func<TEntity, object>>, 
+                IQueryable<TEntity>>(_dbSet, (current, include) => current.Include(include));
 
-        private IQueryable<TReturn> ApplySpecification<TReturn>(ISpecification<TEntity, TReturn> specification)
-        {
-            var evaluator = new SpecificationEvaluator();
-            return evaluator.GetQuery(_dbSet, specification);
+            return query;
         }
     }
 }
