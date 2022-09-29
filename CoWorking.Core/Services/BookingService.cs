@@ -138,7 +138,6 @@ namespace CoWorking.Core.Services
                     CommentsCount = x.Comments.Count
                 }).ToList();
 
-
             return await Task.FromResult(bookings);
         }
 

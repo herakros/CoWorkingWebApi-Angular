@@ -37,12 +37,6 @@ namespace CoWorking.Core.Services
                     "Booking not found!");
             }
 
-            if (model.DateOfEnd <= DateTime.Today)
-            {
-                throw new HttpException(System.Net.HttpStatusCode.BadRequest,
-                    "The date cannot be less than today!");
-            }
-
             booking.DateEnd = model.DateOfEnd;
 
             await _bookingRepository.UpdateAsync(booking);

@@ -1,5 +1,4 @@
-﻿using CoWorking.Contracts.Data.Entities.CommentEntity;
-using CoWorking.Contracts.DTO.CommentDTO;
+﻿using CoWorking.Contracts.DTO.CommentDTO;
 
 namespace CoWorking.Contracts.DTO.BookingDTO
 {

@@ -136,7 +136,7 @@ namespace CoWorking.Core.Services
                     "User with this Username was already exists");
             }
 
-            if(await Validator.IsUniqueUserEmail(_userManager, model.Email))
+            if(!await Validator.IsUserEmailUnique(_userManager, model.Email))
             {
                 throw new HttpException(System.Net.HttpStatusCode.BadRequest,
                     "User with this Email was already exists");
