@@ -18,7 +18,7 @@ namespace CoWorking.Core.Validators
 
         public static async Task<bool> IsSystemRoleAndNoAdmin(RoleManager<IdentityRole> manager, string role)
         {
-            return role == Authorization.Roles.Admin.ToString() ||
+            return role == AuthorizationRoles.Admin.ToString() ||
                 await manager.FindByNameAsync(role) == null;
         }
     }
