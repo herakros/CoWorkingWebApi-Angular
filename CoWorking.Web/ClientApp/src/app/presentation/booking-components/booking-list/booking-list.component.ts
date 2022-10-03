@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Observable } from 'rxjs';
+import { AuthorizationRoles } from 'src/app/configs/authorization-roles';
 import { ReservedBooking } from 'src/app/core/models/booking/ReservedBooking';
 import { UnReservedBooking } from 'src/app/core/models/booking/UnReservedBooking';
 import { AuthenticationService } from 'src/app/core/services/Authentication.service';
@@ -17,6 +16,10 @@ export class BookingListComponent implements OnInit {
 
   reservedBookings: ReservedBooking[];
   unReservedBooking: UnReservedBooking[];
+
+  public get userRoles(): typeof AuthorizationRoles {
+    return AuthorizationRoles;
+  }
 
   constructor(private service: HomeService,
     private authService: AuthenticationService,

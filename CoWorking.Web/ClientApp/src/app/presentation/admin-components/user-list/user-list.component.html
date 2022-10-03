@@ -33,7 +33,7 @@
                           <span class="text-muted">{{user.email}}</span><br>
                       </td>
                       <td>
-                          <span class="text-muted">{{user.role}}</span><br>
+                          <span class="text-muted">{{user.role.toString()}}</span><br>
                       </td>
                       <td>
                         <button type="button" (click)="deleteUser(user.id)"  class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-trash"></i> </button>

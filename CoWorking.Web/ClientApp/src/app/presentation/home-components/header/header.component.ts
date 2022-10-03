@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthorizationRoles } from 'src/app/configs/authorization-roles';
 import { UserId } from 'src/app/core/models/user/UserId';
 import { UserReservation } from 'src/app/core/models/user/UserReservation';
 import { AuthenticationService } from 'src/app/core/services/Authentication.service';
@@ -14,6 +15,11 @@ import { EventEmitterService } from 'src/app/core/services/EventEmitter.service'
 export class HeaderComponent implements OnInit {
 
   isUserAuthorization: boolean;
+  AuthorizationRoles: AuthorizationRoles;
+
+  public get userRoles(): typeof AuthorizationRoles {
+    return AuthorizationRoles;
+  }
 
   constructor(private authService: AuthenticationService,
     private router: Router,

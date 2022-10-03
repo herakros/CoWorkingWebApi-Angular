@@ -3,12 +3,16 @@ using CoWorking.Infrastructure;
 using CoWorking.Web.Middleweres;
 using CoWorking.Web.ServiceExtenstion;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(opt =>
+{
+    opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
 builder.Services.AddDbContext(builder.Configuration.GetConnectionString("DefaultConnection"));
 builder.Services.AddIdentityDbContext();
 

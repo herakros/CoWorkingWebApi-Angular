@@ -163,7 +163,7 @@ namespace CoWorking.Core.Services
                 throw new HttpException(System.Net.HttpStatusCode.BadRequest, errorMessage.ToString());
             }
 
-            await _userManager.AddToRoleAsync(user, model.Role);
+            await _userManager.AddToRoleAsync(user, Enum.GetName(model.Role));
         }
     }
 }

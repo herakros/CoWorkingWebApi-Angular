@@ -3,6 +3,7 @@ using CoWorking.Contracts.Data;
 using CoWorking.Contracts.Data.Entities.UserEntity;
 using CoWorking.Contracts.DTO.AdminPanelDTO;
 using CoWorking.Contracts.Exceptions;
+using CoWorking.Contracts.Roles;
 using CoWorking.Contracts.Services;
 using Microsoft.AspNetCore.Identity;
 
@@ -49,7 +50,7 @@ namespace CoWorking.Core.Services
                 Surname = x.Surname,
                 UserName = x.UserName,
                 Email = x.Email,
-                Role = _userManager.GetRolesAsync(x).Result[0]
+                Role = Enum.Parse<AuthorizationRoles>(_userManager.GetRolesAsync(x).Result[0])
             })
             .ToList(); 
 
@@ -69,7 +70,7 @@ namespace CoWorking.Core.Services
             var userInfo = new UserInfoDTO();
 
             _mapper.Map(user, userInfo);
-            userInfo.Role = await GetUserRoleAsync(_userManager, user);
+            userInfo.Role = Enum.Parse<AuthorizationRoles>(await GetUserRoleAsync(_userManager, user));
 
             return userInfo;
         }
@@ -92,7 +93,7 @@ namespace CoWorking.Core.Services
                     "User with this Email was already exists");
             }
 
-            var changedRole = await _roleManager.FindByNameAsync(model.Role);
+            var changedRole = await _roleManager.FindByNameAsync(Enum.GetName(model.Role));
 
             if (changedRole == null)
             {

@@ -24,7 +24,8 @@ namespace CoWorking.Core.Validators
                 .EmailAddress();
 
             RuleFor(user => user.Role)
-                .NotNull();
+                .NotNull()
+                .IsInEnum();
         }
     }
 }

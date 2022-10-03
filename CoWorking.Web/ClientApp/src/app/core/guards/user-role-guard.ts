@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { CanActivate, Router } from "@angular/router";
+import { AuthorizationRoles } from "src/app/configs/authorization-roles";
 import { AuthenticationService } from "../services/Authentication.service";
 
 @Injectable({
@@ -11,7 +12,8 @@ export class UserRoleGuard implements CanActivate{
         private router: Router) { }
 
     canActivate(): boolean {
-        if(this.authenticationService.currentUser.role == "Manager" || "Developer")
+        if(this.authenticationService.currentUser.role.toString() === AuthorizationRoles[AuthorizationRoles.Manager].toString() ||
+        AuthorizationRoles[AuthorizationRoles.Developer].toString())
         {
             return true;
         }
