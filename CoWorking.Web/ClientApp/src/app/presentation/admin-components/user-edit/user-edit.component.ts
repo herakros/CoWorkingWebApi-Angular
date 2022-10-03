@@ -29,7 +29,7 @@ export class UserEditComponent implements OnInit {
     this.formUser = new FormGroup({
       name: new FormControl("", SignInUpValidator.getNameValidator(3,50)),
       surname: new FormControl("", SignInUpValidator.getNameValidator(3,50)),
-      userName: new FormControl("", SignInUpValidator.getNameValidator(3,50)),
+      userName: new FormControl("", SignInUpValidator.getUserNameValidator(3,50)),
       email: new FormControl("", SignInUpValidator.getEmailValidator()),
       role: new FormControl("",  SignInUpValidator.getRequiredValidator())
     });
