@@ -12,8 +12,8 @@ export class UserRoleGuard implements CanActivate{
         private router: Router) { }
 
     canActivate(): boolean {
-        if(this.authenticationService.currentUser.role.toString() === AuthorizationRoles[AuthorizationRoles.Manager].toString() ||
-        AuthorizationRoles[AuthorizationRoles.Developer].toString())
+        if(this.authenticationService.currentUser.role == 'Manager' ||
+        'Developer')
         {
             return true;
         }

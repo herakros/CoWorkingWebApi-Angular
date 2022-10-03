@@ -12,7 +12,7 @@ export class AdminRoleGuard implements CanActivate{
         private router: Router) { }
 
     canActivate(): boolean {
-        if(this.authenticationService.currentUser.role.toString() === AuthorizationRoles[AuthorizationRoles.Admin].toString())
+        if(this.authenticationService.currentUser.role == 'Admin')
         {
             return true;
         }

@@ -12,52 +12,42 @@ import { UserInfoDTO } from '../models/user/UserInfoDTO';
 })
 export class AdminService {
 
-  private httpOption = {
-    headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.getToken()
-    })
-  };
-
-  private getToken(): any{
-    return localStorage.getItem('token')?.toString();
-  }
-
   constructor(private http: HttpClient) { }
 
   getAllUsers() : Observable<UserInfoDTO[]> {
-    return this.http.get<UserInfoDTO[]>(adminUsersUrl, this.httpOption);
+    return this.http.get<UserInfoDTO[]>(adminUsersUrl);
   }
 
   getUser(id: string) : Observable<UserInfoDTO> {
-    return this.http.get<UserInfoDTO>(adminUsersUrl + id, this.httpOption);
+    return this.http.get<UserInfoDTO>(adminUsersUrl + id);
   }
 
   deleteUser(id: string) {
-    return this.http.delete(adminUsersUrl + id, this.httpOption);
+    return this.http.delete(adminUsersUrl + id);
   }
 
   editUser(user: UserInfoDTO) {
-    return this.http.put(adminUsersUrl, user, this.httpOption);
+    return this.http.put(adminUsersUrl, user);
   }
 
   createBooking(booking: CreateBooking) : Observable<void> {
-    return this.http.post<void>(adminBookingsUrl, booking, this.httpOption);
+    return this.http.post<void>(adminBookingsUrl, booking);
   }
 
   getAllBookings() : Observable<BookingInfo[]> {
-    return this.http.get<BookingInfo[]>(adminBookingsUrl, this.httpOption);
+    return this.http.get<BookingInfo[]>(adminBookingsUrl);
   }
 
   deleteBooking(id: number) {
-    return this.http.delete(adminBookingsUrl + id, this.httpOption);
+    return this.http.delete(adminBookingsUrl + id);
   }
 
   editBooking(booking: BookingInfoDTO) {
-    return this.http.put(adminBookingsUrl, booking, this.httpOption);
+    return this.http.put(adminBookingsUrl, booking);
   }
 
   getBookingById(id: number) : Observable<BookingInfoDTO>{
-    return this.http.get<BookingInfoDTO>(adminBookingsUrl + id, this.httpOption);
+    return this.http.get<BookingInfoDTO>(adminBookingsUrl + id);
   }
 
 }

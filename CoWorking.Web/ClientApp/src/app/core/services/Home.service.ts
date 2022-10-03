@@ -11,27 +11,17 @@ import { UnReservedBooking } from '../models/booking/UnReservedBooking';
 })
 export class HomeService {
 
-  private httpOption = {
-    headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.getToken()
-    })
-  };
-
-  private getToken(): any{
-    return localStorage.getItem('token')?.toString();
-  }
-
   constructor(private http: HttpClient) { }
 
   getReservedBooking() : Observable<ReservedBooking[]> {
-    return this.http.get<ReservedBooking[]>(reservedBookingListUrl, this.httpOption);
+    return this.http.get<ReservedBooking[]>(reservedBookingListUrl);
   }
 
   getUnReservedBooking() : Observable<UnReservedBooking[]> {
-    return this.http.get<UnReservedBooking[]>(unReservedBookingListUrl, this.httpOption);
+    return this.http.get<UnReservedBooking[]>(unReservedBookingListUrl);
   }
 
   getBookingById(id: number) : Observable<BookingInfoDTO> {
-    return this.http.get<BookingInfoDTO>(bookingInfoUrl + id, this.httpOption);
+    return this.http.get<BookingInfoDTO>(bookingInfoUrl + id);
   }
 }
