@@ -17,10 +17,6 @@ export class BookingListComponent implements OnInit {
   reservedBookings: ReservedBooking[];
   unReservedBooking: UnReservedBooking[];
 
-  public get userRoles(): typeof AuthorizationRoles {
-    return AuthorizationRoles;
-  }
-
   constructor(private service: HomeService,
     private authService: AuthenticationService,
     private modalService: NgbModal) { }

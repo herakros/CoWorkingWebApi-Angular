@@ -17,10 +17,6 @@ export class HeaderComponent implements OnInit {
   isUserAuthorization: boolean;
   AuthorizationRoles: AuthorizationRoles;
 
-  public get userRoles(): typeof AuthorizationRoles {
-    return AuthorizationRoles;
-  }
-
   constructor(private authService: AuthenticationService,
     private router: Router,
     private developerService: DeveloperService,

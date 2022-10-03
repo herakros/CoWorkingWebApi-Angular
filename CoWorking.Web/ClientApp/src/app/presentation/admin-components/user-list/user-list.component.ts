@@ -19,10 +19,6 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  setUserRoles(){
-    
-  }
-
   deleteUser(id: string) {
     if(confirm("Are you sure to delete user?")){
       this.service.deleteUser(id).subscribe(
