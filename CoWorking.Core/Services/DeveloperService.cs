@@ -46,8 +46,8 @@ namespace CoWorking.Core.Services
         public Task<bool> IsItUserBookingAsync(UsedBookingIdDTO model)
         {
             var booking = _bookingRepository.Query()
-                .Where(x => x.DeveloperId == model.UserId &&
-                x.Id == model.BookingId);
+                .Where(x => x.DeveloperId == model.UserId && x.Id == model.BookingId)
+                .FirstOrDefault();
 
             return Task.FromResult(booking != null);
         }

@@ -21,8 +21,7 @@ namespace CoWorking.Contracts.Data
 
         IQueryable<TEntity> Query(params Expression<Func<TEntity, object>>[] includes);
 
-        Task<IEnumerable<TEntity>> GetAllAsync(Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null);
-        
+        Task<TEntity> GetByKeyWithIncludesAsync(Expression<Func<TEntity, bool>>? filter = null,
+            Func<IQueryable<TEntity>, IQueryable<TEntity>>? includes = null);
     }
 }

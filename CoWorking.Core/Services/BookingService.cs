@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using CoWorking.Contracts.Data;
 using CoWorking.Contracts.Data.Entities.BookingEntity;
-using CoWorking.Contracts.Data.Entities.CommentEntity;
 using CoWorking.Contracts.Data.Query;
 using CoWorking.Contracts.DTO.BookingDTO;
 using CoWorking.Contracts.DTO.CommentDTO;
@@ -15,15 +14,12 @@ namespace CoWorking.Core.Services
     {
         private readonly IMapper _mapper;
         private readonly IRepository<Booking> _bookingRepository;
-        private readonly IRepository<Comment> _commentRepository;
 
         public BookingService(IMapper mapper, 
-            IRepository<Booking> bookingRepository,
-            IRepository<Comment> commentRepository)
+            IRepository<Booking> bookingRepository)
         {
             _mapper = mapper;
             _bookingRepository = bookingRepository;
-            _commentRepository = commentRepository;
         }
 
         public async Task AddBookingAsync(CreateBookingDTO model)
@@ -87,8 +83,7 @@ namespace CoWorking.Core.Services
                 return query.Include(x => x.Developer).Include(x => x.Comments).ThenInclude(x => x.User);
             });
 
-            var booking = _bookingRepository.GetAllAsync(null, includes.Expression)
-                .Result.FirstOrDefault(x => x.Id == id);
+            var booking = await _bookingRepository.GetByKeyWithIncludesAsync(x => x.Id == id, includes.Expression);
 
             var bookingDTO = new BookingInfoDTO();
             _mapper.Map(booking, bookingDTO);

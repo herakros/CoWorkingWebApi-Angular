@@ -61,14 +61,14 @@ namespace CoWorking.Infrastructure.Data.Repositories
             return query;
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync(Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, 
-            Func<IQueryable<TEntity>, IQueryable<TEntity>> includes = null)
+        public Task<TEntity> GetByKeyWithIncludesAsync(Expression<Func<TEntity, bool>>? filter = null, 
+            Func<IQueryable<TEntity>, IQueryable<TEntity>>? includes = null)
         {
-            var result = QueryDb(null, orderBy, includes);
-            return await result.ToListAsync();
+            var result = QueryDb(filter, includes);
+            return Task.FromResult(result.ToListAsync().GetAwaiter().GetResult().First());
         }
 
-        protected IQueryable<TEntity> QueryDb(Expression<Func<TEntity, bool>> filter, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy, Func<IQueryable<TEntity>, IQueryable<TEntity>> includes)
+        protected IQueryable<TEntity> QueryDb(Expression<Func<TEntity, bool>>? filter, Func<IQueryable<TEntity>, IQueryable<TEntity>>? includes)
         {
             IQueryable<TEntity> query = _dbContext.Set<TEntity>();
 
@@ -80,11 +80,6 @@ namespace CoWorking.Infrastructure.Data.Repositories
             if (includes != null)
             {
                 query = includes(query);
-            }
-
-            if (orderBy != null)
-            {
-                query = orderBy(query);
             }
 
             return query;
