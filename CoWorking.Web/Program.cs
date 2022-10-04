@@ -1,14 +1,17 @@
 using CoWorking.Core;
 using CoWorking.Infrastructure;
-using CoWorking.Web.Middleweres;
 using CoWorking.Web.ServiceExtenstion;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(opt =>
+{
+    opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
 builder.Services.AddDbContext(builder.Configuration.GetConnectionString("DefaultConnection"));
 builder.Services.AddIdentityDbContext();
 
@@ -40,11 +43,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CoWorking v1"));
 }
 
+app.ConfigureCustomExceptionMiddleware();
+
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
-
-app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseRouting();
 

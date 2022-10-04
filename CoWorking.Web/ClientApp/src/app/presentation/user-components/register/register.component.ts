@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthorizationRoles } from 'src/app/configs/authorization-roles';
 import { UserRegister } from 'src/app/core/models/user/UserRegister';
 import { AuthenticationService } from 'src/app/core/services/Authentication.service';
 import { SignInUpValidator } from 'src/app/core/validators/signInUpValidator';
@@ -14,6 +15,10 @@ export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
   userForRegister: UserRegister;
+
+  public get userRoles(): typeof AuthorizationRoles {
+    return AuthorizationRoles;
+  }
 
   constructor(private service: AuthenticationService, private router: Router) {
     this.registerForm = new FormGroup({

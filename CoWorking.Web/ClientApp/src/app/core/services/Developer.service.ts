@@ -12,28 +12,18 @@ import { UserReservation } from '../models/user/UserReservation';
 })
 export class DeveloperService {
 
-  private httpOption = {
-    headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.getToken()
-    })
-  };
-
-  private getToken(): any{
-    return localStorage.getItem('token')?.toString();
-  }
-
   constructor(private http: HttpClient) { }
 
   isUserHasReservation(user: UserId) : Observable<UserReservation>{
-    return this.http.post<UserReservation>(isDeveloperHasReservationUrl, user, this.httpOption);
+    return this.http.post<UserReservation>(isDeveloperHasReservationUrl, user);
   }
 
   isItUserBooking(userBookingDTO: UserBookingDTO) : Observable<boolean>{
-    return this.http.post<boolean>(isItUserBookingUrl, userBookingDTO, this.httpOption);
+    return this.http.post<boolean>(isItUserBookingUrl, userBookingDTO);
   }
 
   changeBookingDateOfEnd(changeBookingDTO: ChangeBookingDTO) : Observable<void>{
-    return this.http.put<void>(changeBookingDateUrl, changeBookingDTO, this.httpOption);
+    return this.http.put<void>(changeBookingDateUrl, changeBookingDTO);
   }
 
 }

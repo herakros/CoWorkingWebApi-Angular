@@ -25,7 +25,7 @@ namespace CoWorking.Infrastructure.Data
             modelBuilder.ApplyConfiguration(new CommentConfiguration());
         }
 
-        public DbSet<User> Users { get; set; }
+        public override DbSet<User> Users { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<Comment> Comments { get; set; }

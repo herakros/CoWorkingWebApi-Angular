@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Router } from '@angular/router';
 import { map, Observable } from 'rxjs';
 import { UserAuthorizationResponse } from '../models/user/UserAuthorizationResponse';
 import { UserLogin } from '../models/user/UserLogin';

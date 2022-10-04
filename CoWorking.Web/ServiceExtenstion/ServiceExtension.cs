@@ -1,6 +1,7 @@
 ﻿using CoWorking.Contracts.Data.Entities.UserEntity;
 using CoWorking.Contracts.Helpers;
 using CoWorking.Infrastructure.Data.SeedData;
+using CoWorking.Web.Middleweres;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -98,6 +99,11 @@ namespace CoWorking.Web.ServiceExtenstion
 
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CoWorking.WebApi", Version = "v1" });
             });
+        }
+
+        public static void ConfigureCustomExceptionMiddleware(this WebApplication app)
+        {
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
         }
     }
 }

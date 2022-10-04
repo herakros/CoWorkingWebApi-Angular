@@ -49,14 +49,14 @@
                       <label>Role</label>
                       <select required class="form-control" id="role" formControlName="role">
                           <option value="" selected disabled>Choose role</option>
-                          <option value="Manager">Manager</option>
-                          <option value="Developer">Developer</option>
-                          <option value="Admin">Admin</option>
+                          <option [value]="userRoles.Manager">Manager</option>
+                          <option [value]="userRoles.Developer">Developer</option>
+                          <option [value]="userRoles.Admin">Admin</option>
                       </select>
                     </div>
                   </div>
                   <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                    <button type="submit" class="btn btn-primary btn-lg" [disabled]="!formUser.valid">Save</button>
+                    <button type="submit" class="btn btn-primary btn-lg">Save</button>
                   </div>
                   <div class="container">
                       <p class="small fw-bold mt-2 pt-1 mb-0"><a href="admin/users"

@@ -11,12 +11,9 @@ namespace CoWorking.Web.Controllers
     public class DeveloperController : ControllerBase
     {
         private readonly IDeveloperService _developerService;
-        private readonly IBookingService _bookingService;
-        public DeveloperController(IDeveloperService developerService,
-            IBookingService bookingService)
+        public DeveloperController(IDeveloperService developerService)
         {
             _developerService = developerService;
-            _bookingService = bookingService;
         }
 
         [HttpPost("is-reservation")]

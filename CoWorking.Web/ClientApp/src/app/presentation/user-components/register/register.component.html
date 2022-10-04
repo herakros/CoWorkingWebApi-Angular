@@ -49,8 +49,8 @@
                       <div class="form-outline flex-fill mb-0">
                         <select required class="form-control" id="role" formControlName="role">
                             <option value="" selected disabled>Choose role</option>
-                            <option value="Manager">Manager</option>
-                            <option value="Developer">Developer</option>
+                            <option [value]="userRoles.Manager">Manager</option>
+                            <option [value]="userRoles.Developer">Developer</option>
                         </select>
                       </div>
                     </div>

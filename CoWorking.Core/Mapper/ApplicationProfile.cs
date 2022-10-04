@@ -15,45 +15,19 @@ namespace CoWorking.Core.Mapper
     {
         public ApplicationProfile()
         {
-            CreateMap<UserRegistrationDTO, User>()
-                .ForMember(dest => dest.UserName, act => act.MapFrom(src => src.UserName))
-                .ForMember(dest => dest.Surname, act => act.MapFrom(src => src.Surname))
-                .ForMember(dest => dest.Name, act => act.MapFrom(src => src.Name))
-                .ForMember(dest => dest.Email, act => act.MapFrom(src => src.Email));
+            CreateMap<UserRegistrationDTO, User>();
 
-            CreateMap<UserInfoDTO, User>()
-                .ForMember(dest => dest.UserName, act => act.MapFrom(src => src.UserName))
-                .ForMember(dest => dest.Surname, act => act.MapFrom(src => src.Surname))
-                .ForMember(dest => dest.Name, act => act.MapFrom(src => src.Name))
-                .ForMember(dest => dest.Email, act => act.MapFrom(src => src.Email));
+            CreateMap<UserInfoDTO, User>();
 
-            CreateMap<User, UserInfoDTO>()
-                .ForMember(dest => dest.UserName, act => act.MapFrom(src => src.UserName))
-                .ForMember(dest => dest.Surname, act => act.MapFrom(src => src.Surname))
-                .ForMember(dest => dest.Name, act => act.MapFrom(src => src.Name))
-                .ForMember(dest => dest.Email, act => act.MapFrom(src => src.Email));
+            CreateMap<User, UserInfoDTO>();
 
-            CreateMap<CreateBookingDTO, Booking>()
-                .ForMember(dest => dest.Name, act => act.MapFrom(src => src.Name))
-                .ForMember(dest => dest.Description, act => act.MapFrom(src => src.Description));
+            CreateMap<CreateBookingDTO, Booking>();
 
-            CreateMap<BookingDTO, Booking>()
-                .ForMember(dest => dest.Name, act => act.MapFrom(src => src.Name))
-                .ForMember(dest => dest.Description, act => act.MapFrom(src => src.Description))
-                .ForMember(dest => dest.DateStart, act => act.MapFrom(src => src.DateStart))
-                .ForMember(dest => dest.DateEnd, act => act.MapFrom(src => src.DateEnd));
+            CreateMap<BookingDTO, Booking>();
 
-            CreateMap<Booking, BookingDTO>()
-                .ForMember(dest => dest.Name, act => act.MapFrom(src => src.Name))
-                .ForMember(dest => dest.Description, act => act.MapFrom(src => src.Description))
-                .ForMember(dest => dest.DateStart, act => act.MapFrom(src => src.DateStart))
-                .ForMember(dest => dest.DateEnd, act => act.MapFrom(src => src.DateEnd));
+            CreateMap<Booking, BookingDTO>();
 
-            CreateMap<Booking, BookingInfoDTO>()
-                .ForMember(dest => dest.Name, act => act.MapFrom(src => src.Name))
-                .ForMember(dest => dest.Description, act => act.MapFrom(src => src.Description))
-                .ForMember(dest => dest.DateStart, act => act.MapFrom(src => src.DateStart))
-                .ForMember(dest => dest.DateEnd, act => act.MapFrom(src => src.DateEnd));
+            CreateMap<Booking, BookingInfoDTO>();
 
             CreateMap<Booking, UserBookingInfoDTO>()
                 .ForMember(dest => dest.UserName, act => act.MapFrom(src => src.Developer.UserName))
@@ -61,25 +35,13 @@ namespace CoWorking.Core.Mapper
                 .ForMember(dest => dest.Name, act => act.MapFrom(src => src.Developer.Name))
                 .ForMember(dest => dest.Email, act => act.MapFrom(src => src.Developer.Email));
 
-            CreateMap<Comment, CommentInfoDTO>()
-                .ForMember(dest => dest.Text, act => act.MapFrom(src => src.Text))
-                .ForMember(dest => dest.DateOfCreate, act => act.MapFrom(src => src.DateOfCreate))
-                .ForMember(dest => dest.User, act => act.MapFrom(src => src.User));
+            CreateMap<Comment, CommentInfoDTO>();
 
-            CreateMap<User, UserCommentDTO>()
-                .ForMember(dest => dest.Name, act => act.MapFrom(src => src.Name))
-                .ForMember(dest => dest.Surname, act => act.MapFrom(src => src.Surname))
-                .ForMember(dest => dest.UserName, act => act.MapFrom(src => src.UserName))
-                .ForMember(dest => dest.Email, act => act.MapFrom(src => src.Email));
+            CreateMap<User, UserCommentDTO>();
 
-            CreateMap<AddCommentDTO, Comment>()
-                .ForMember(dest => dest.Text, act => act.MapFrom(src => src.Text))
-                .ForMember(dest => dest.UserId, act => act.MapFrom(src => src.UserId))
-                .ForMember(dest => dest.BookingId, act => act.MapFrom(src => src.BookingId));
+            CreateMap<AddCommentDTO, Comment>();
 
-            CreateMap<SubscribeUserDTO, Booking>()
-                .ForMember(dest => dest.DateStart, act => act.MapFrom(src => src.DateStart))
-                .ForMember(dest => dest.DateEnd, act => act.MapFrom(src => src.DateEnd));
+            CreateMap<SubscribeUserDTO, Booking>();
         }
     }
 }

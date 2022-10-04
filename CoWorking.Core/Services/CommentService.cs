@@ -31,16 +31,14 @@ namespace CoWorking.Core.Services
 
             if(booking == null)
             {
-                throw new HttpException(System.Net.HttpStatusCode.NotFound,
-                    "Booking not found!");
+                throw new BookingNotFoundException();
             }
 
             var user = await _userRepository.GetByKeyAsync(model.UserId);
 
             if(user == null)
             {
-                throw new HttpException(System.Net.HttpStatusCode.NotFound,
-                    "User not found!");
+                throw new UserNotFoundException();
             }
 
             var comment = new Comment()

@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule, HttpHeaders} from '@angular/common/http';
 import { LoginComponent } from './presentation/user-components/login/login.component';
 import { RegisterComponent } from './presentation/user-components/register/register.component';
 import { HomeComponent } from './presentation/home-components/home/home.component';
@@ -32,6 +32,11 @@ import { ManagerService } from './core/services/Manager.service';
 import { DeveloperService } from './core/services/Developer.service';
 import { ChangeBookingModalComponent } from './presentation/booking-components/ChangeBookingModal/ChangeBookingModal.component';
 import { EventEmitterService } from './core/services/EventEmitter.service';
+import { JwtModule } from '@auth0/angular-jwt';
+
+export function tokenGetter() {
+  return localStorage.getItem('token');
+}
 
 @NgModule({
   declarations: [
@@ -57,7 +62,13 @@ import { EventEmitterService } from './core/services/EventEmitter.service';
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+
+    JwtModule.forRoot({
+      config: {
+        tokenGetter
+      }
+    })
   ],
   providers: [
     AuthInterceptorProvider,

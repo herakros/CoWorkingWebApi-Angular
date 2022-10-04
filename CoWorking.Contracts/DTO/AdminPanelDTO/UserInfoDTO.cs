@@ -1,4 +1,6 @@
-﻿namespace CoWorking.Contracts.DTO.AdminPanelDTO
+﻿using CoWorking.Contracts.Roles;
+
+namespace CoWorking.Contracts.DTO.AdminPanelDTO
 {
     public class UserInfoDTO
     {
@@ -12,6 +14,6 @@
 
         public string Email { get; set; }
 
-        public string Role { get; set; }
+        public AuthorizationRoles Role { get; set; }
     }
 }

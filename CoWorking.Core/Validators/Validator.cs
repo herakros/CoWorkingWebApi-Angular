@@ -6,9 +6,9 @@ namespace CoWorking.Core.Validators
 {
     public static class Validator
     {
-        public static async Task<bool> IsUniqueUserEmail(UserManager<User> manager, string email)
+        public static async Task<bool> IsUserEmailUnique(UserManager<User> manager, string email)
         {
-            return await manager.FindByEmailAsync(email) != null;
+            return await manager.FindByEmailAsync(email) == null;
         }
 
         public static async Task<bool> IsUniqueUserName(UserManager<User> manager, string username)
@@ -16,10 +16,10 @@ namespace CoWorking.Core.Validators
             return await manager.FindByNameAsync(username) != null;
         }
 
-        public static async Task<bool> IsSystemRoleAndNoAdmin(RoleManager<IdentityRole> manager, string role)
+        public static async Task<bool> IsSystemRoleAndNoAdmin(RoleManager<IdentityRole> manager, AuthorizationRoles role)
         {
-            return role == Authorization.Roles.Admin.ToString() ||
-                await manager.FindByNameAsync(role) == null;
+            return role == AuthorizationRoles.Admin ||
+                await manager.FindByNameAsync(Enum.GetName(role)) == null;
         }
     }
 }

@@ -3,6 +3,7 @@ using CoWorking.Contracts.Data;
 using CoWorking.Contracts.Data.Entities.UserEntity;
 using CoWorking.Contracts.DTO.AdminPanelDTO;
 using CoWorking.Contracts.Exceptions;
+using CoWorking.Contracts.Roles;
 using CoWorking.Contracts.Services;
 using Microsoft.AspNetCore.Identity;
 
@@ -32,8 +33,7 @@ namespace CoWorking.Core.Services
 
             if (user == null)
             {
-                throw new HttpException(System.Net.HttpStatusCode.NotFound,
-                    "User not found!");
+                throw new UserNotFoundException();
             }
 
             await _userManager.RemoveFromRoleAsync(user, await GetUserRoleAsync(_userManager, user));
@@ -42,10 +42,18 @@ namespace CoWorking.Core.Services
 
         public async Task<IEnumerable<UserInfoDTO>> GetAllUsersAsync()
         {
-            var scecification = new Users.UsersWithRole(_userManager);
-            var users = await _userRepository.GetListBySpecAsync(scecification);
+            var users = _userRepository.Query().Select(x => new UserInfoDTO()
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Surname = x.Surname,
+                UserName = x.UserName,
+                Email = x.Email,
+                Role = Enum.Parse<AuthorizationRoles>(_userManager.GetRolesAsync(x).Result[0])
+            })
+            .ToList(); 
 
-            return users;
+            return await Task.FromResult(users);
         }
 
         public async Task<UserInfoDTO> GetUserByIdAsync(string id)
@@ -54,14 +62,13 @@ namespace CoWorking.Core.Services
 
             if (user == null)
             {
-                throw new HttpException(System.Net.HttpStatusCode.NotFound,
-                    "User not found!");
+                throw new UserNotFoundException();
             }
 
             var userInfo = new UserInfoDTO();
 
             _mapper.Map(user, userInfo);
-            userInfo.Role = await GetUserRoleAsync(_userManager, user);
+            userInfo.Role = Enum.Parse<AuthorizationRoles>(await GetUserRoleAsync(_userManager, user));
 
             return userInfo;
         }
@@ -70,26 +77,28 @@ namespace CoWorking.Core.Services
         {
             var userName = await _userManager.FindByNameAsync(model.UserName);
 
+            if(userName == null)
+            {
+                throw new UserNotFoundException();
+            }
+
             if (userName != null && userName.Id != model.Id)
             {
-                throw new HttpException(System.Net.HttpStatusCode.NotFound,
-                    "User with this Username was already exists");
+                throw new UserAlreadyExistsException("Username");
             }
 
             var userEmail = await _userManager.FindByEmailAsync(model.Email);
 
             if (userEmail != null && userEmail.Id != model.Id)
             {
-                throw new HttpException(System.Net.HttpStatusCode.NotFound,
-                    "User with this Email was already exists");
+                throw new UserAlreadyExistsException("Email");
             }
 
-            var changedRole = await _roleManager.FindByNameAsync(model.Role);
+            var changedRole = await _roleManager.FindByNameAsync(Enum.GetName(model.Role));
 
             if (changedRole == null)
             {
-                throw new HttpException(System.Net.HttpStatusCode.NotFound,
-                    "System don't have this role!");
+                throw new RoleNotFoundException();
             }
 
             var user = await _userRepository.GetByKeyAsync(model.Id);
@@ -102,9 +111,9 @@ namespace CoWorking.Core.Services
             return model;
         }
 
-        private async Task<string> GetUserRoleAsync(UserManager<User> manager, User user)
+        private Task<string> GetUserRoleAsync(UserManager<User> manager, User user)
         {
-            return manager.GetRolesAsync(user).Result[0];
+            return Task.FromResult(manager.GetRolesAsync(user).Result[0]);
         }
     }
 }

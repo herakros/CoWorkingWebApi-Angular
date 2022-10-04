@@ -9,9 +9,9 @@ namespace CoWorking.Infrastructure.Data.SeedData
         public static async Task SystemRoles(UserManager<User> userManager, 
             RoleManager<IdentityRole> roleManager)
         {
-            await roleManager.CreateAsync(new IdentityRole(Authorization.Roles.Admin.ToString()));
-            await roleManager.CreateAsync(new IdentityRole(Authorization.Roles.Manager.ToString()));
-            await roleManager.CreateAsync(new IdentityRole(Authorization.Roles.Developer.ToString()));
+            await roleManager.CreateAsync(new IdentityRole(AuthorizationRoles.Admin.ToString()));
+            await roleManager.CreateAsync(new IdentityRole(AuthorizationRoles.Manager.ToString()));
+            await roleManager.CreateAsync(new IdentityRole(AuthorizationRoles.Developer.ToString()));
 
             var admin = new User
             {
@@ -26,7 +26,7 @@ namespace CoWorking.Infrastructure.Data.SeedData
             if(userManager.Users.All(u => u.Id != admin.Id))
             {
                 await userManager.CreateAsync(admin, "Admin1!");
-                await userManager.AddToRoleAsync(admin, Authorization.Roles.Admin.ToString());
+                await userManager.AddToRoleAsync(admin, AuthorizationRoles.Admin.ToString());
             }
         }
     }

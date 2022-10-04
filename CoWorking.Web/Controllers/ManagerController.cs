@@ -11,12 +11,9 @@ namespace CoWorking.Web.Controllers
     public class ManagerController : ControllerBase
     {
         private readonly IManagerService _managerService;
-        private readonly IBookingService _bookingService;
-        public ManagerController(IManagerService managerService, 
-            IBookingService bookingService)
+        public ManagerController(IManagerService managerService)
         {
             _managerService = managerService;
-            _bookingService = bookingService;
         }
 
         [HttpPost("subscribe")]

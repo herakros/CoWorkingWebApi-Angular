@@ -66,7 +66,7 @@ namespace CoWorking.Core.Services
             if (jwtSecurityToken == null 
                 || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, 
                     StringComparison.InvariantCultureIgnoreCase))
-                throw new HttpException(System.Net.HttpStatusCode.BadRequest, "Invalid Token");
+                throw new InvalidTokenException();
 
             return jwtSecurityToken.Claims;
         }
