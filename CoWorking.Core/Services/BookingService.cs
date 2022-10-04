@@ -37,8 +37,7 @@ namespace CoWorking.Core.Services
 
             if (booking == null)
             {
-                throw new HttpException(System.Net.HttpStatusCode.NotFound,
-                    "Booking not found!");
+                throw new BookingNotFoundException();
             }
 
             await _bookingRepository.DeleteAsync(booking);
@@ -64,10 +63,10 @@ namespace CoWorking.Core.Services
         public async Task<BookingDTO> GetBookingByIdAsync(int id)
         {
             var booking = await _bookingRepository.GetByKeyAsync(id);
+
             if (booking == null)
             {
-                throw new HttpException(System.Net.HttpStatusCode.NotFound,
-                    "Booking not found!");
+                throw new BookingNotFoundException();
             }
 
             var bookingDTO = new BookingDTO();
@@ -84,6 +83,11 @@ namespace CoWorking.Core.Services
             });
 
             var booking = await _bookingRepository.GetByKeyWithIncludesAsync(x => x.Id == id, includes.Expression);
+
+            if(booking == null)
+            {
+                throw new BookingNotFoundException();
+            }
 
             var bookingDTO = new BookingInfoDTO();
             _mapper.Map(booking, bookingDTO);
@@ -142,8 +146,7 @@ namespace CoWorking.Core.Services
 
             if (booking == null)
             {
-                throw new HttpException(System.Net.HttpStatusCode.NotFound,
-                    "Booking not found!");
+                throw new BookingNotFoundException();
             }
 
             _mapper.Map(model, booking);

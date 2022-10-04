@@ -33,8 +33,7 @@ namespace CoWorking.Core.Services
 
             if (user == null)
             {
-                throw new HttpException(System.Net.HttpStatusCode.NotFound,
-                    "User not found!");
+                throw new UserNotFoundException();
             }
 
             await _userManager.RemoveFromRoleAsync(user, await GetUserRoleAsync(_userManager, user));
@@ -63,8 +62,7 @@ namespace CoWorking.Core.Services
 
             if (user == null)
             {
-                throw new HttpException(System.Net.HttpStatusCode.NotFound,
-                    "User not found!");
+                throw new UserNotFoundException();
             }
 
             var userInfo = new UserInfoDTO();
@@ -79,26 +77,28 @@ namespace CoWorking.Core.Services
         {
             var userName = await _userManager.FindByNameAsync(model.UserName);
 
+            if(userName == null)
+            {
+                throw new UserNotFoundException();
+            }
+
             if (userName != null && userName.Id != model.Id)
             {
-                throw new HttpException(System.Net.HttpStatusCode.NotFound,
-                    "User with this Username was already exists");
+                throw new UserAlreadyExistsException("Username");
             }
 
             var userEmail = await _userManager.FindByEmailAsync(model.Email);
 
             if (userEmail != null && userEmail.Id != model.Id)
             {
-                throw new HttpException(System.Net.HttpStatusCode.NotFound,
-                    "User with this Email was already exists");
+                throw new UserAlreadyExistsException("Email");
             }
 
             var changedRole = await _roleManager.FindByNameAsync(Enum.GetName(model.Role));
 
             if (changedRole == null)
             {
-                throw new HttpException(System.Net.HttpStatusCode.NotFound,
-                    "System don't have this role!");
+                throw new RoleNotFoundException();
             }
 
             var user = await _userRepository.GetByKeyAsync(model.Id);

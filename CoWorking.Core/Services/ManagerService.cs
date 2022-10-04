@@ -29,22 +29,19 @@ namespace CoWorking.Core.Services
 
             if (user == null)
             {
-                throw new HttpException(System.Net.HttpStatusCode.NotFound,
-                    "User not found!");
+                throw new UserNotFoundException();
             }
 
             var booking = await _bookingRepository.GetByKeyAsync(model.BookingId);
 
             if (booking == null)
             {
-                throw new HttpException(System.Net.HttpStatusCode.NotFound,
-                    "Booking not found!");
+                throw new BookingNotFoundException();
             }
 
             if(booking.Developer != null)
             {
-                throw new HttpException(System.Net.HttpStatusCode.BadRequest,
-                    "This Booking already reserved!");
+                throw new BookingIsReservedException();
             }
 
             var userBooking = _bookingRepository.Query()
@@ -52,8 +49,7 @@ namespace CoWorking.Core.Services
 
             if(userBooking != null)
             {
-                throw new HttpException(System.Net.HttpStatusCode.BadRequest,
-                    "This User already has reservation!");
+                throw new UserAlreadyHasReservationException();
             }
 
             _mapper.Map(model, booking);

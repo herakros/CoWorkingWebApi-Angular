@@ -42,8 +42,7 @@ namespace CoWorking.Core.Services
 
             if (user == null || !await _userManager.CheckPasswordAsync(user, model.Password))
             {
-                throw new HttpException(System.Net.HttpStatusCode.Unauthorized, 
-                    "Incorrect Email or Password!");
+                throw new InvalidLoginException();
             }
 
             if (user != null)
@@ -132,20 +131,17 @@ namespace CoWorking.Core.Services
         {
             if (await Validator.IsUniqueUserName(_userManager, model.UserName))
             {
-                throw new HttpException(System.Net.HttpStatusCode.BadRequest,
-                    "User with this Username was already exists");
+                throw new UserAlreadyExistsException("Username");
             }
 
             if(!await Validator.IsUserEmailUnique(_userManager, model.Email))
             {
-                throw new HttpException(System.Net.HttpStatusCode.BadRequest,
-                    "User with this Email was already exists");
+                throw new UserAlreadyExistsException("Email");
             }
 
             if(await Validator.IsSystemRoleAndNoAdmin(_roleManager, model.Role))
             {
-                throw new HttpException(System.Net.HttpStatusCode.BadRequest,
-                    "You can't register with this role");
+                throw new RoleNotFoundException();
             }
 
             var user = new User();
@@ -160,7 +156,7 @@ namespace CoWorking.Core.Services
                 {
                     errorMessage.Append(error.Description.ToString() + " ");
                 }
-                throw new HttpException(System.Net.HttpStatusCode.BadRequest, errorMessage.ToString());
+                throw new BadRequestException(errorMessage.ToString());
             }
 
             await _userManager.AddToRoleAsync(user, Enum.GetName(model.Role));

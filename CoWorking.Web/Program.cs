@@ -1,6 +1,5 @@
 using CoWorking.Core;
 using CoWorking.Infrastructure;
-using CoWorking.Web.Middleweres;
 using CoWorking.Web.ServiceExtenstion;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using System.Text.Json.Serialization;
@@ -44,11 +43,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CoWorking v1"));
 }
 
+app.ConfigureCustomExceptionMiddleware();
+
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
-
-app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseRouting();
 
