@@ -24,3 +24,6 @@ export const developerUrl = '/developer/';
 export const isDeveloperHasReservationUrl = baseUrl + developerUrl + 'is-reservation/';
 export const isItUserBookingUrl = baseUrl + developerUrl + 'is-it-user-reservation/';
 export const changeBookingDateUrl = baseUrl + developerUrl + 'change-booking-date/';
+
+export const userUrl = '/user/';
+export const getUserProfileInfoUrl = baseUrl + userUrl + 'info';
