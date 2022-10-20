@@ -35,6 +35,7 @@ import { EventEmitterService } from './core/services/EventEmitter.service';
 import { JwtModule } from '@auth0/angular-jwt';
 import { UserProfileComponent } from './presentation/user-profile-components/user-profile/user-profile.component';
 import { UserService } from './core/services/User.service';
+import { ProfileNavbarComponent } from './presentation/user-profile-components/profile-navbar/profile-navbar.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -57,7 +58,8 @@ export function tokenGetter() {
     BookingViewComponent,
     SubscribeUserModalComponent,
     ChangeBookingModalComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    ProfileNavbarComponent
   ],
   imports: [
     BrowserModule,
