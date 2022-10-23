@@ -43,6 +43,8 @@ namespace CoWorking.Core.Mapper
             CreateMap<SubscribeUserDTO, Booking>();
 
             CreateMap<User, UserProfileDTO>();
+
+            CreateMap<UserEditPersonalInfoDTO, User>();
         }
     }
 }

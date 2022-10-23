@@ -5,6 +5,7 @@ using CoWorking.Contracts.DTO.UserDTO;
 using CoWorking.Contracts.Exceptions;
 using CoWorking.Contracts.Services;
 using Microsoft.AspNetCore.Identity;
+using System.Text;
 
 namespace CoWorking.Core.Services
 {
@@ -20,6 +21,51 @@ namespace CoWorking.Core.Services
             _mapper = mapper;
             _userRepository = userRepository;
             _userManager = userManager;
+        }
+
+        public async Task EditUserInfo(UserEditPersonalInfoDTO model, string userId)
+        {
+            var user = await _userRepository.GetByKeyAsync(userId);
+
+            if (user is null)
+            {
+                throw new UserNotFoundException();
+            }
+
+            if(await _userManager.FindByNameAsync(model.UserName) is not null)
+            {
+                throw new UserAlreadyExistsException("UserName");
+            }
+
+            _mapper.Map(model, user);
+
+            await _userRepository.UpdateAsync(user);
+            await _userRepository.SaveChangesAsync();
+        }
+
+        public async Task EditUserPassword(UserEditPasswordDTO model, string userId)
+        {
+            var user = await _userRepository.GetByKeyAsync(userId);
+
+            if (user is null)
+            {
+                throw new UserNotFoundException();
+            }
+
+            var result = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.ChangedPassword);
+
+            if(!result.Succeeded)
+            {
+                StringBuilder stringBuilder = new StringBuilder();
+
+                foreach(var error in result.Errors)
+                {
+                    stringBuilder.AppendLine(error.Description);
+                    stringBuilder.AppendLine();
+                }
+
+                throw new BadRequestException(stringBuilder.ToString());
+            }
         }
 
         public async Task<UserProfileDTO> GetUserInfo(string userId)

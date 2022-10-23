@@ -1,4 +1,5 @@
-﻿using CoWorking.Contracts.Services;
+﻿using CoWorking.Contracts.DTO.UserDTO;
+using CoWorking.Contracts.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -21,6 +22,20 @@ namespace CoWorking.Web.Controllers
         {
             var result = await _userService.GetUserInfo(UserId);
             return Ok(result);
+        }
+
+        [HttpPost("user-info")]
+        public async Task<IActionResult> EditUserInfo(UserEditPersonalInfoDTO model)
+        {
+            await _userService.EditUserInfo(model, UserId);
+            return Ok();
+        }
+
+        [HttpPost("user-password")]
+        public async Task<IActionResult> EditUserPassword(UserEditPasswordDTO model)
+        {
+            await _userService.EditUserPassword(model, UserId);
+            return Ok();
         }
     }
 }

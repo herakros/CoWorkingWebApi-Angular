@@ -36,6 +36,9 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { UserProfileComponent } from './presentation/user-profile-components/user-profile/user-profile.component';
 import { UserService } from './core/services/User.service';
 import { ProfileNavbarComponent } from './presentation/user-profile-components/profile-navbar/profile-navbar.component';
+import { ChangePasswordComponent } from './presentation/user-profile-components/change-password/change-password.component';
+import { ChangeUserInfoComponent } from './presentation/user-profile-components/change-user-info/change-user-info.component';
+import { ConfirmEmailComponent } from './presentation/user-profile-components/confirm-email/confirm-email.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -59,7 +62,10 @@ export function tokenGetter() {
     SubscribeUserModalComponent,
     ChangeBookingModalComponent,
     UserProfileComponent,
-    ProfileNavbarComponent
+    ProfileNavbarComponent,
+    ChangePasswordComponent,
+    ChangeUserInfoComponent,
+    ConfirmEmailComponent
   ],
   imports: [
     BrowserModule,
