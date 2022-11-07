@@ -24,7 +24,7 @@ namespace CoWorking.Web.Controllers
             return Ok(result);
         }
 
-        [HttpPost("info")]
+        [HttpPut("info")]
         public async Task<IActionResult> EditUserInfo(UserEditPersonalInfoDTO model)
         {
             await _userService.EditUserInfo(model, UserId);

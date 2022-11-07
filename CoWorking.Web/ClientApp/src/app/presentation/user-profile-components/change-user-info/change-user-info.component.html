@@ -1,3 +1,48 @@
-<p>
-  change-user-info works!
-</p>
+<app-profile-navbar></app-profile-navbar>
+<section class="vh-50">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-lg-6 mb-4 mb-lg-0">
+        <div class="card mb-4">
+          <div class="row g-0">
+            <div class="text-center">
+              <h5>Change user info</h5>
+            </div>
+            <form class="mx-0 mx-md-0" [formGroup]="userInfoForm" autocomplete="off" novalidate (ngSubmit)="submit()">
+              <div class="d-flex flex-row align-items-center mb-4">
+                <div class="form-outline flex-fill mb-0">
+                  <i>UserName</i>
+                  <input type="text" id="userName" formControlName="userName" class="form-control"/>
+                  <div *ngIf="userInfoForm.controls['userName'].invalid && userInfoForm.controls['userName'].touched" class="alert alert-danger">
+                      UserName is required.
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex flex-row align-items-center mb-4">
+                <div class="form-outline flex-fill mb-0">
+                  <i>Name</i>
+                  <input type="text" id="name" formControlName="name" class="form-control"/>
+                  <div *ngIf="userInfoForm.controls['name'].invalid && userInfoForm.controls['name'].touched" class="alert alert-danger">
+                      Name is required. Must contain only letters!
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex flex-row align-items-center mb-4">
+                <div class="form-outline flex-fill mb-0">
+                  <i>Surname</i>
+                  <input type="text" id="surname" formControlName="surname" class="form-control"/>
+                  <div *ngIf="userInfoForm.controls['surname'].invalid && userInfoForm.controls['surname'].touched" class="alert alert-danger">
+                      Surname is required. Must contain only letters!
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                <button type="submit" class="btn btn-primary btn-lg" [disabled]="!userInfoForm.valid">Save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
