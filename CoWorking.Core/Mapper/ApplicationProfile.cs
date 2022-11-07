@@ -7,7 +7,6 @@ using CoWorking.Contracts.DTO.BookingDTO;
 using CoWorking.Contracts.DTO.CommentDTO;
 using CoWorking.Contracts.DTO.ManagerDTO;
 using CoWorking.Contracts.DTO.UserDTO;
-using CoWorking.Core.Services;
 
 namespace CoWorking.Core.Mapper
 {
@@ -42,6 +41,10 @@ namespace CoWorking.Core.Mapper
             CreateMap<AddCommentDTO, Comment>();
 
             CreateMap<SubscribeUserDTO, Booking>();
+
+            CreateMap<User, UserProfileDTO>();
+
+            CreateMap<UserEditPersonalInfoDTO, User>();
         }
     }
 }

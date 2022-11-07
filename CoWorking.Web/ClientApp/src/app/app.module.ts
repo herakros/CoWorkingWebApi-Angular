@@ -33,6 +33,12 @@ import { DeveloperService } from './core/services/Developer.service';
 import { ChangeBookingModalComponent } from './presentation/booking-components/ChangeBookingModal/ChangeBookingModal.component';
 import { EventEmitterService } from './core/services/EventEmitter.service';
 import { JwtModule } from '@auth0/angular-jwt';
+import { UserProfileComponent } from './presentation/user-profile-components/user-profile/user-profile.component';
+import { UserService } from './core/services/User.service';
+import { ProfileNavbarComponent } from './presentation/user-profile-components/profile-navbar/profile-navbar.component';
+import { ChangePasswordComponent } from './presentation/user-profile-components/change-password/change-password.component';
+import { ChangeUserInfoComponent } from './presentation/user-profile-components/change-user-info/change-user-info.component';
+import { ConfirmEmailComponent } from './presentation/user-profile-components/confirm-email/confirm-email.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -54,7 +60,12 @@ export function tokenGetter() {
     BookingListComponent,
     BookingViewComponent,
     SubscribeUserModalComponent,
-    ChangeBookingModalComponent
+    ChangeBookingModalComponent,
+    UserProfileComponent,
+    ProfileNavbarComponent,
+    ChangePasswordComponent,
+    ChangeUserInfoComponent,
+    ConfirmEmailComponent
   ],
   imports: [
     BrowserModule,
@@ -79,6 +90,7 @@ export function tokenGetter() {
     HomeService,
     ManagerService,
     DeveloperService,
+    UserService,
     EventEmitterService,
     AdminRoleGuard,
     UserRoleGuard,

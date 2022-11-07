@@ -13,6 +13,9 @@ import { BookingViewComponent } from './presentation/booking-components/booking-
 import { HomeComponent } from './presentation/home-components/home/home.component';
 import { LoginComponent } from './presentation/user-components/login/login.component';
 import { RegisterComponent } from './presentation/user-components/register/register.component';
+import { ChangePasswordComponent } from './presentation/user-profile-components/change-password/change-password.component';
+import { ChangeUserInfoComponent } from './presentation/user-profile-components/change-user-info/change-user-info.component';
+import { UserProfileComponent } from './presentation/user-profile-components/user-profile/user-profile.component';
 
 
 const routes: Routes = [
@@ -27,6 +30,9 @@ const routes: Routes = [
   {path: "admin/booking", component: AddBookingComponent, canActivate: [AdminRoleGuard, AuthGuard]},
   {path: "home/bookings", component: BookingListComponent, canActivate: [UserRoleGuard, AuthGuard]},
   {path: "home/bookings/:id", component: BookingViewComponent, canActivate: [UserRoleGuard, AuthGuard]},
+  {path: "user-profile", component: UserProfileComponent, canActivate: [UserRoleGuard, AuthGuard]},
+  {path: "user-profile/password", component: ChangePasswordComponent, canActivate: [UserRoleGuard, AuthGuard]},
+  {path: "user-profile/info", component: ChangeUserInfoComponent, canActivate: [UserRoleGuard, AuthGuard]},
   {path: '**', component: HomeComponent}
 ];
 
