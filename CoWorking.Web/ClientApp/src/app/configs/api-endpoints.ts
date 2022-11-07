@@ -27,3 +27,4 @@ export const changeBookingDateUrl = baseUrl + developerUrl + 'change-booking-dat
 
 export const userUrl = '/user/';
 export const getUserProfileInfoUrl = baseUrl + userUrl + 'info';
+export const editUserPasswordUrl = baseUrl + userUrl + 'password';

@@ -24,14 +24,14 @@ namespace CoWorking.Web.Controllers
             return Ok(result);
         }
 
-        [HttpPost("user-info")]
+        [HttpPost("info")]
         public async Task<IActionResult> EditUserInfo(UserEditPersonalInfoDTO model)
         {
             await _userService.EditUserInfo(model, UserId);
             return Ok();
         }
 
-        [HttpPost("user-password")]
+        [HttpPut("password")]
         public async Task<IActionResult> EditUserPassword(UserEditPasswordDTO model)
         {
             await _userService.EditUserPassword(model, UserId);
